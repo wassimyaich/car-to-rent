@@ -15,80 +15,44 @@ use Saade\FilamentFullCalendar\Widgets\FullCalendarWidget;
 
 class CalendarWidget extends FullCalendarWidget
 {
+    public $selectedCar = null; // Store the selected car
 
-    // public function fetchEvents(array $fetchInfo): array
-    // {
-    //     $reservations = Reservation::with('car')->get();
-    //     if ($reservations->isEmpty()) {
-    //         Log::info('No reservations found');
-    //     } else {
-    //         Log::info('Reservations found:', $reservations->toArray());
-    //     }
-    //     return Reservation::query()
-    //         ->where('start_date', '>=', $fetchInfo['start'])
-    //         ->where('end_date', '<=', $fetchInfo['end'])
-    //         ->get()
-    //         ->map(
-    //             fn (Reservation $event) => [
-    //                 'title' => $event->id,
-    //                 'start' => $event->start_date,
-    //                 'end' => $event->end_date,
-    //                 'url' => ReservationResource::getUrl(name: 'view', parameters: ['record' => $event]),
-    //                 'shouldOpenUrlInNewTab' => true
-    //             ]
-    //         )
-    //         ->all();
-    // }
-public $selectedCar = null;
-public function getFormSchema(): array
-{
-    // Add the car selection dropdown form above the calendar
-    return [
-        Forms\Components\Select::make('selectedCar')
-        ->label('Filter by Car')
-        ->options(Car::pluck('license_plate', 'id')) // Show car license plate in the dropdown
-        ->searchable() // Allows searching cars
-        ->placeholder('Select a Car to Filter')
-        ->reactive() // React to state changes
-        ->afterStateUpdated( fn ($state, callable $set) => $set('selectedCar', $state)) // Trigger function on car selection
-];
-}
-    // public function fetchEvents(array $fetchInfo): array
-    // {
-    //     // Fetch reservations with related car details
-    //     $reservations = Reservation::with('car')
-    //         ->where('start_date', '>=', $fetchInfo['start'])
-    //         ->where('end_date', '<=', $fetchInfo['end'])
-    //         ->get();
-
-    //     if ($reservations->isEmpty()) {
-    //         Log::info('No reservations found');
-    //     } else {
-    //         Log::info('Reservations found:', $reservations->toArray());
-    //     }
-
-    //     // Map each reservation to a calendar event
-    //     return $reservations->map(function (Reservation $reservation) {
-    //         return [
-    //             'id' => $reservation->id,
-    //             'title' => $reservation->car->brand->name . ' (' . $reservation->status . ')', // Car brand and status
-    //             'start' => $reservation->start_date,
-    //             'end' => Carbon::parse($reservation->end_date)->addDay(), // Include the end date
-    //             'url' => ReservationResource::getUrl(name: 'view', parameters: ['record' => $reservation]), // Link to reservation
-    //             'shouldOpenUrlInNewTab' => true,
-    //             'color' => $this->getColorBasedOnStatus($reservation->status), // Set color based on reservation status
-    //         ];
-    //     })->all();
-    // }
-    public function fetchEvents(array $fetchInfo): array
+    /**
+     * Define the form schema to include the car filter.
+     */
+    public function getFormSchema(): array
     {
-        // Query reservations between the calendar start and end dates
+        return [
+            Forms\Components\Select::make('selectedCar')
+                ->label('Filter by Car')
+                ->options(Car::pluck('license_plate', 'id')->toArray())
+                ->searchable()
+                ->placeholder('Select a Car')
+                ->reactive()
+                ->afterStateUpdated(fn ($state) => $this->updateSelectedCar($state)),
+        ];
+    }
+
+    /**
+     * Update the selected car and refresh events.
+     */
+    protected function updateSelectedCar($state): void
+    {
+        $this->selectedCar = $state;
+        $this->dispatch('refresh'); // Call to refresh events after updating the car
+    }
+
+    /**
+     * Fetch events (reservations) from the database.
+     */
+    public function fetchEvents(array $info): array
+    {
         $query = Reservation::query()
             ->with('car')
-            ->where('start_date', '>=', $fetchInfo['start'])
-            ->where('end_date', '<=', $fetchInfo['end']);
+            ->where('start_date', '>=', $info['start'])
+            ->where('end_date', '<=', $info['end']);
 
-        // Filter by selected car if any
+        // Apply car filter if selected
         if ($this->selectedCar) {
             $query->where('car_id', $this->selectedCar);
         }
@@ -96,38 +60,35 @@ public function getFormSchema(): array
         $reservations = $query->get();
 
         if ($reservations->isEmpty()) {
-            Log::info('No reservations found');
+            Log::info('No reservations found for fetchevent.');
         } else {
             Log::info('Reservations found:', $reservations->toArray());
         }
 
-        // Map each reservation to a calendar event
+        // Map reservations to calendar events
         return $reservations->map(function (Reservation $reservation) {
             return [
                 'id' => $reservation->id,
-                'title' => $reservation->car->brand->name . ' (' . $reservation->status . ')',
+                'title' => $reservation->car->license_plate . ' (' . $reservation->status . ')',
                 'start' => $reservation->start_date,
-                'end' => Carbon::parse($reservation->end_date)->addDay(), // Add a day to include end date
+                'end' => Carbon::parse($reservation->end_date)->addDay(),
                 'color' => $this->getColorBasedOnStatus($reservation->status),
             ];
         })->all();
     }
-    // Determine event color based on reservation status
-    protected function getColorBasedOnStatus($status): string
+
+    /**
+     * Determine the color of the event based on the reservation status.
+     */
+    protected function getColorBasedOnStatus(string $status): string
     {
-        switch ($status) {
-            case 'reserved':
-                return '#FFA500'; // Orange for reserved
-            case 'confirmed':
-                return '#007BFF'; // Blue for confirmed
-            case 'active':
-                return '#28A745'; // Green for active
-            case 'completed':
-                return '#6C757D'; // Gray for completed
-            case 'cancelled':
-                return '#DC3545'; // Red for cancelled
-            default:
-                return '#6C757D'; // Gray for other statuses
-        }
+        return match ($status) {
+            'reserved' => '#FFA500',
+            'confirmed' => '#007BFF',
+            'active' => '#28A745',
+            'completed' => '#6C757D',
+            'cancelled' => '#DC3545',
+            default => '#6C757D',
+        };
     }
 }
