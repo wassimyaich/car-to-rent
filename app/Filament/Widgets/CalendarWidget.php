@@ -3,48 +3,51 @@
 namespace App\Filament\Widgets;
 
 use Carbon\Carbon;
-use Filament\Forms;
-
 use App\Models\Car;
+
+use Filament\Forms;
 use Filament\Tables;
 use Filament\Tables\Table;
 use App\Models\Reservation;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Log;
 use App\Filament\Resources\ReservationResource;
 use Saade\FilamentFullCalendar\Widgets\FullCalendarWidget;
 
 class CalendarWidget extends FullCalendarWidget
 {
-    public $selectedCar = null; // Store the selected car
+    public $selectedCar = null;
 
-    /**
-     * Define the form schema to include the car filter.
-     */
-    public function getFormSchema(): array
+    public function getCars(): \Illuminate\Support\Collection
     {
-        return [
-            Forms\Components\Select::make('selectedCar')
-                ->label('Filter by Car')
-                ->options(Car::pluck('license_plate', 'id')->toArray())
-                ->searchable()
-                ->placeholder('Select a Car')
-                ->reactive()
-                ->afterStateUpdated(fn ($state) => $this->updateSelectedCar($state)),
-        ];
+        return Car::all();
     }
 
-    /**
-     * Update the selected car and refresh events.
-     */
-    protected function updateSelectedCar($state): void
+    public function render(): \Illuminate\Contracts\View\View
     {
-        $this->selectedCar = $state;
-        $this->dispatch('refresh'); // Call to refresh events after updating the car
+        $plugin = \Saade\FilamentFullCalendar\FilamentFullCalendarPlugin::get();
+
+        return view('vendor.filament-fullcalendar.fullcalendar', [
+            'cars' => $this->getCars(),
+            'plugin' => $plugin,
+        ]);
     }
 
-    /**
-     * Fetch events (reservations) from the database.
-     */
+    public function mount(): void
+    {
+        $this->selectedCar = null;
+    }
+
+    public function updateCarSelection($carId)
+    {
+        $this->selectedCar = $carId ?: null;
+
+        // Call refreshEvents only if it exists
+        if (method_exists($this, 'refreshEvents')) {
+            $this->refreshEvents();
+        }
+    }
+
     public function fetchEvents(array $info): array
     {
         $query = Reservation::query()
@@ -52,7 +55,6 @@ class CalendarWidget extends FullCalendarWidget
             ->where('start_date', '>=', $info['start'])
             ->where('end_date', '<=', $info['end']);
 
-        // Apply car filter if selected
         if ($this->selectedCar) {
             $query->where('car_id', $this->selectedCar);
         }
@@ -60,12 +62,11 @@ class CalendarWidget extends FullCalendarWidget
         $reservations = $query->get();
 
         if ($reservations->isEmpty()) {
-            Log::info('No reservations found for fetchevent.');
+            Log::info('No reservations found for fetchEvents.');
         } else {
             Log::info('Reservations found:', $reservations->toArray());
         }
 
-        // Map reservations to calendar events
         return $reservations->map(function (Reservation $reservation) {
             return [
                 'id' => $reservation->id,
@@ -75,11 +76,30 @@ class CalendarWidget extends FullCalendarWidget
                 'color' => $this->getColorBasedOnStatus($reservation->status),
             ];
         })->all();
+        
+
     }
 
-    /**
-     * Determine the color of the event based on the reservation status.
-     */
+    // Placeholder for the refreshEvents method
+    public function refreshEvents()
+    {
+        
+        Log::info('Refreshing events...');
+        // $this->dispatch('refresh-calendar');
+        $currentRange = [
+            'start' => now()->startOfMonth()->toDateString(), // Adjust this as needed
+            'end' => now()->endOfMonth()->toDateString(), // Adjust this as needed
+        ];
+    
+        // Fetch events for the current date range
+        $events = $this->fetchEvents($currentRange);
+        $this->dispatch('refresh-calendar');
+
+        return $events;
+
+       
+    }
+
     protected function getColorBasedOnStatus(string $status): string
     {
         return match ($status) {
@@ -91,4 +111,5 @@ class CalendarWidget extends FullCalendarWidget
             default => '#6C757D',
         };
     }
+   
 }
