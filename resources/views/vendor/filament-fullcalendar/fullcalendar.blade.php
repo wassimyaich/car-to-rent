@@ -1,4 +1,4 @@
-{{-- @php
+@php
     $plugin = \Saade\FilamentFullCalendar\FilamentFullCalendarPlugin::get();
 @endphp
 
@@ -28,9 +28,9 @@
     </x-filament::section>
 
     <x-filament-actions::modals />
-</x-filament-widgets::widget> --}}
+</x-filament-widgets::widget>
 
-@php
+{{-- @php
     $plugin = \Saade\FilamentFullCalendar\FilamentFullCalendarPlugin::get();
 @endphp
 
@@ -38,9 +38,9 @@
     <x-filament::section>
         <div class="flex justify-end flex-1 mb-4">
             <x-filament-actions::actions :actions="$this->getCachedHeaderActions()" class="shrink-0" />
-        </div>
+        </div> --}}
 
-        <div class="mb-4">
+        {{-- <div class="mb-4">
             <label for="car-select">Select Car:</label>
             <select id="car-select" wire:model="selectedCar" wire:change="updateCarSelection($event.target.value)">
                 <option value="">All Cars</option>
@@ -48,9 +48,9 @@
                     <option value="{{ $car->id }}">{{ $car->license_plate }}</option>
                 @endforeach
             </select>
-        </div>
+        </div> --}}
 
-        <div class="filament-fullcalendar" wire:ignore ax-load
+        {{-- <div class="filament-fullcalendar" wire:ignore ax-load
             ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('filament-fullcalendar-alpine', 'saade/filament-fullcalendar') }}"
             ax-load-css="{{ \Filament\Support\Facades\FilamentAsset::getStyleHref('filament-fullcalendar-styles', 'saade/filament-fullcalendar') }}"
             x-ignore x-data="fullcalendar({
@@ -66,13 +66,13 @@
                 eventDidMount: {{ $this->eventDidMount() }},
                 eventWillUnmount: {{ $this->eventWillUnmount() }},
             })"
-            {{-- x-on:refresh-calendar.window="refetchEvents()" --}}
+          
         >
         </div>
     </x-filament::section>
 
     <x-filament-actions::modals />
-</x-filament-widgets::widget>
+</x-filament-widgets::widget> --}}
 {{-- @php
     $plugin = \Saade\FilamentFullCalendar\FilamentFullCalendarPlugin::get();
 @endphp
