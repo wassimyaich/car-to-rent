@@ -1,272 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    @include('frontend.include.includeheader')
+</head>
+<body data-bs-spy="scroll" data-bs-target="#header-nav" tabindex="0">
 
- <!-- CSS Files in frontend/css -->
-<link rel="stylesheet" href="{{ asset('frontend/css/open-iconic-bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}">
+@include('frontend.header.header')
 
-<link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/magnific-popup.css') }}">
-
-<link rel="stylesheet" href="{{ asset('frontend/css/aos.css') }}">
-
-<link rel="stylesheet" href="{{ asset('frontend/css/ionicons.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-datepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/jquery.timepicker.css') }}">
-
-<link rel="stylesheet" href="{{ asset('frontend/css/flaticon.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/icomoon.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
-
-  </head>
-  <body>
-    @include('frontend.header.header')
-    
-    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('frontend/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('frontend/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-3 bread">Choose Your Car</h1>
-          </div>
-        </div>
-      </div>
-    </section>
-		
-
-		<section class="ftco-section bg-light">
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-1.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-2.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Subaru</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-3.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-4.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-5.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Subaru</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-6.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-7.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-8.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Subaru</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-9.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-10.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-11.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Subaru</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-12.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
-    		<div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-3 bread">Choose Your Car</h1>
             </div>
-          </div>
         </div>
-    	</div>
-    </section>
-    
+    </div>
+</section>
+{{-- section test --}}
 
-   @include('frontend.footer.footer')
-    
-  
+<section id="search">
+  <div class="container search-block p-5">
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+      <form class="row">
+          <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
+              <label for="vehicle" class="label-style text-capitalize form-label">Vehicle type</label>
+              <div class="input-group date ">
+                  <!-- <input type="text" class="form-control p-3 " id="vehicle" placeholder="Select Car Group" /> -->
+                  <select class="form-select form-control p-3" id="vehicle" aria-label="Default select example"
+                      style="background-image: none;">
+                      <option selected>Select Vehicle</option>
+                      <option value="1">BMW x3</option>
+                      <option value="2">BMW M2</option>
+                      <option value="3">Ford explorer</option>
+                      <option value="4">Ferrari</option>
+                      <option value="5">Mercedes-Benz</option>
+                      <option value="6">Sports car</option>
+                      <option value="7">Tesla</option>
+                  </select>
+                  {{-- <span class="search-icon-position position-absolute p-3 ">
+                      <iconify-icon class="search-icons" icon="solar:bus-outline"></iconify-icon>
+                  </span> --}}
+              </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
+              <label for="location" class="label-style text-capitalize form-label">Picking up location</label>
+              <div class="input-group date">
+                  <input type="text" class="form-control p-3 position-relative" id="location"
+                      placeholder="Airport or anywhere" />
+                  {{-- <span class="search-icon-position position-absolute p-3 ">
+                      <iconify-icon class="search-icons" icon="solar:map-arrow-square-outline"></iconify-icon>
+                  </span> --}}
+
+
+              </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
+              <label for="pick-up-date" class="label-style text-capitalize form-label">Picking up date</label>
+              <div class="input-group date" id="datepicker1">
+                  <input type="text" class="form-control p-3" id="pick-up-date" />
+
+                  {{-- <span class="input-group-append">
+                      <span class="search-icon-position position-absolute p-3">
+                          <iconify-icon class="search-icons" icon="solar:calendar-broken"></iconify-icon>
+                      </span>
+                  </span> --}}
+
+              </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
+              <label for="return-date" class="label-style text-capitalize form-label">Returning date</label>
+              <div class="input-group date" id="datepicker2">
+                  <input type="text" class="form-control p-3" id="return-date" />
+
+                  {{-- <span class="input-group-append">
+                      <span class="search-icon-position position-absolute p-3">
+                          <iconify-icon class="search-icons" icon="solar:calendar-broken"></iconify-icon>
+                      </span>
+                  </span> --}}
+
+              </div>
+          </div>
+      </form>
+
+      <div class="d-grid gap-2 mt-4">
+          <button class="btn btn-primary " type="button">Find your car</button>
+      </div>
+  </div>
+
+</section>
+
+{{-- end section test  --}}
+<section class="ftco-section bg-light">
+    <div class="container">
+        <!-- Filters Section -->
+        {{-- <div class="row mb-4">
+            <div class="col-md-4">
+                <input type="text" id="searchBar" placeholder="Search by model..." class="form-control">
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="cityFilter" placeholder="Filter by city..." class="form-control">
+            </div>
+            <div class="col-md-4">
+                <select id="modelFilter" class="form-control">
+                    <option value="">Select Model</option>
+                    <option value="Mercedes Grand Sedan">Mercedes Grand Sedan</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+        </div> --}}
+
+        <!-- Car Listings -->
+        <div id="carList" class="row">
+            <!-- Example Car Item -->
+            <div class="col-md-4 car-item" data-city="New York" data-model="Mercedes Grand Sedan">
+                <div class="car-wrap rounded ftco-animate">
+                    <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-1.jpg);"></div>
+                    <div class="text">
+                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                        <div class="d-flex mb-3"><span class="cat">Chevrolet</span><p class="price ml-auto">$500<span>/day</span></p></div>
+                        <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> 
+                        <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more car items similarly -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="row mt-5">
+            <div class="col text-center">
+                <!-- Pagination code here -->
+            </div>
+        </div>
+    </div>
+</section>
+
+@include('frontend.footer.footer')
 
 <!-- JS Files in frontend/js -->
 <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery-migrate-3.0.1.min.js') }}"></script>
-<script src="{{ asset('frontend/js/popper.min.js') }}"></script>
-<script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.easing.1.3.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.waypoints.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.stellar.min.js') }}"></script>
-<script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.magnific-popup.min.js') }}"></script>
-<script src="{{ asset('frontend/js/aos.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.animateNumber.min.js') }}"></script>
-<script src="{{ asset('frontend/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.timepicker.min.js') }}"></script>
-<script src="{{ asset('frontend/js/scrollax.min.js') }}"></script>
-
-<!-- Google Maps API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-
-<!-- Custom JS Files -->
-<script src="{{ asset('frontend/js/google-map.js') }}"></script>
 <script src="{{ asset('frontend/js/main.js') }}"></script>
 
-    
-  </body>
+<script>
+// JavaScript for filtering
+$(document).ready(function() {
+    $('#searchBar, #cityFilter, #modelFilter').on('keyup change', function() {
+        var searchValue = $('#searchBar').val().toLowerCase();
+        var cityValue = $('#cityFilter').val().toLowerCase();
+        var modelValue = $('#modelFilter').val();
+
+        $('.car-item').filter(function() {
+            $(this).toggle(
+                ($(this).find('.text h2').text().toLowerCase().indexOf(searchValue) > -1 || searchValue === "") &&
+                ($(this).data('city').toLowerCase().indexOf(cityValue) > -1 || cityValue === "") &&
+                (modelValue === "" || $(this).data('model') === modelValue)
+            );
+        });
+    });
+});
+</script>
+@include('frontend.include.includefooter')
+</body>
 </html>

@@ -66,7 +66,7 @@
                 eventDidMount: {{ $this->eventDidMount() }},
                 eventWillUnmount: {{ $this->eventWillUnmount() }},
             })"
-            x-on:refresh-calendar.window="refetchEvents()"
+            {{-- x-on:refresh-calendar.window="refetchEvents()" --}}
         >
         </div>
     </x-filament::section>

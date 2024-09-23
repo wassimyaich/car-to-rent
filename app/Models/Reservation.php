@@ -20,7 +20,10 @@ class Reservation extends Model
         'cancellation_reason'
     ];
 
-    
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
     public function car()
     {
         return $this->belongsTo(Car::class);

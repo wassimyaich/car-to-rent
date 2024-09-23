@@ -5,27 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-<!-- CSS Files in frontend/css -->
-<link rel="stylesheet" href="{{ asset('frontend/css/open-iconic-bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/magnific-popup.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/aos.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/ionicons.min.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-datepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/jquery.timepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/flaticon.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/icomoon.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    @include('frontend.include.includeheader')
+
 
   </head>
   <body>
     
   @include('frontend.header.header')
 
-    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('frontend/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -44,13 +32,13 @@
             <h2 class="mb-3">It is a long established fact a reader be distracted</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
             <p>
-              <img src="images/image_7.jpg" alt="" class="img-fluid">
+              <img src="frontend/images/image_7.jpg" alt="" class="img-fluid">
             </p>
             <p>Molestiae cupiditate inventore animi, maxime sapiente optio, illo est nemo veritatis repellat sunt doloribus nesciunt! Minima laborum magni reiciendis qui voluptate quisquam voluptatem soluta illo eum ullam incidunt rem assumenda eveniet eaque sequi deleniti tenetur dolore amet fugit perspiciatis ipsa, odit. Nesciunt dolor minima esse vero ut ea, repudiandae suscipit!</p>
             <h2 class="mb-3 mt-5">#2. Creative WordPress Themes</h2>
             <p>Temporibus ad error suscipit exercitationem hic molestiae totam obcaecati rerum, eius aut, in. Exercitationem atque quidem tempora maiores ex architecto voluptatum aut officia doloremque. Error dolore voluptas, omnis molestias odio dignissimos culpa ex earum nisi consequatur quos odit quasi repellat qui officiis reiciendis incidunt hic non? Debitis commodi aut, adipisci.</p>
             <p>
-              <img src="images/image_8.jpg" alt="" class="img-fluid">
+              <img src="frontend/images/image_8.jpg" alt="" class="img-fluid">
             </p>
             <p>Quisquam esse aliquam fuga distinctio, quidem delectus veritatis reiciendis. Nihil explicabo quod, est eos ipsum. Unde aut non tenetur tempore, nisi culpa voluptate maiores officiis quis vel ab consectetur suscipit veritatis nulla quos quia aspernatur perferendis, libero sint. Error, velit, porro. Deserunt minus, quibusdam iste enim veniam, modi rem maiores.</p>
             <p>Odit voluptatibus, eveniet vel nihil cum ullam dolores laborum, quo velit commodi rerum eum quidem pariatur! Quia fuga iste tenetur, ipsa vel nisi in dolorum consequatur, veritatis porro explicabo soluta commodi libero voluptatem similique id quidem? Blanditiis voluptates aperiam non magni. Reprehenderit nobis odit inventore, quia laboriosam harum excepturi ea.</p>
@@ -67,7 +55,7 @@
             
             <div class="about-author d-flex p-4 bg-light">
               <div class="bio mr-5">
-                <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
+                <img src="frontend/images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
               </div>
               <div class="desc">
                 <h3>George Washington</h3>
@@ -81,7 +69,7 @@
               <ul class="comment-list">
                 <li class="comment">
                   <div class="vcard bio">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
+                    <img src="frontend/images/person_1.jpg" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
                     <h3>John Doe</h3>
@@ -93,7 +81,7 @@
 
                 <li class="comment">
                   <div class="vcard bio">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
+                    <img src="frontend/images/person_1.jpg" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
                     <h3>John Doe</h3>
@@ -105,7 +93,7 @@
                   <ul class="children">
                     <li class="comment">
                       <div class="vcard bio">
-                        <img src="images/person_1.jpg" alt="Image placeholder">
+                        <img src="frontend/images/person_1.jpg" alt="Image placeholder">
                       </div>
                       <div class="comment-body">
                         <h3>John Doe</h3>
@@ -118,7 +106,7 @@
                       <ul class="children">
                         <li class="comment">
                           <div class="vcard bio">
-                            <img src="images/person_1.jpg" alt="Image placeholder">
+                            <img src="frontend/images/person_1.jpg" alt="Image placeholder">
                           </div>
                           <div class="comment-body">
                             <h3>John Doe</h3>
@@ -130,7 +118,7 @@
                             <ul class="children">
                               <li class="comment">
                                 <div class="vcard bio">
-                                  <img src="images/person_1.jpg" alt="Image placeholder">
+                                  <img src="frontend/images/person_1.jpg" alt="Image placeholder">
                                 </div>
                                 <div class="comment-body">
                                   <h3>John Doe</h3>
@@ -148,7 +136,7 @@
 
                 <li class="comment">
                   <div class="vcard bio">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
+                    <img src="frontend/images/person_1.jpg" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
                     <h3>John Doe</h3>
@@ -213,7 +201,7 @@
             <div class="sidebar-box ftco-animate">
               <h3>Recent Blog</h3>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(frontend/images/image_1.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
                   <div class="meta">
@@ -224,7 +212,7 @@
                 </div>
               </div>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(frontend/images/image_2.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
                   <div class="meta">
@@ -235,7 +223,7 @@
                 </div>
               </div>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_3.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(frontend/images/image_3.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
                   <div class="meta">

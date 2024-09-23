@@ -50,6 +50,8 @@ class CalendarWidget extends FullCalendarWidget
 
     public function fetchEvents(array $info): array
     {
+        Log::info('Fetching events with info:', $info);
+
         $query = Reservation::query()
             ->with('car')
             ->where('start_date', '>=', $info['start'])
@@ -111,5 +113,25 @@ class CalendarWidget extends FullCalendarWidget
             default => '#6C757D',
         };
     }
+    public function fetchEventsForCalendar(): array
+{
+    $query = Reservation::query()->with('car');
+
+    if ($this->selectedCar) {
+        $query->where('car_id', $this->selectedCar);
+    }
+
+    $reservations = $query->get();
+
+    return $reservations->map(function (Reservation $reservation) {
+        return [
+            'id' => $reservation->id,
+            'title' => $reservation->car->license_plate . ' (' . $reservation->status . ')',
+            'start' => $reservation->start_date->toIso8601String(),
+            'end' => $reservation->end_date ? $reservation->end_date->toIso8601String() : $reservation->start_date->toIso8601String(),
+            'color' => $this->getColorBasedOnStatus($reservation->status),
+        ];
+    })->toArray();
+}
    
 }
