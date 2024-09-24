@@ -25,7 +25,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->boolean('is_available')->default(true);
             $table->boolean('show_on_website')->default(true);
-
+            $table->string('slug')->unique()->nullable();
+            $table->text('keywords')->nullable();
             $table->timestamps();
         });
     }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     @include('frontend.include.includeheader')
 </head>
-<body data-bs-spy="scroll" data-bs-target="#header-nav" tabindex="0">
+<body >
 
 @include('frontend.header.header')
 
@@ -60,28 +60,28 @@
               </div>
           </div>
           <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
-              <label for="pick-up-date" class="label-style text-capitalize form-label">Picking up date</label>
+              <label  for="pick-up-date" class="label-style text-capitalize form-label">Picking up date</label>
               <div class="input-group date" id="datepicker1">
-                  <input type="text" class="form-control p-3" id="pick-up-date" />
+                  <input type="text" class="form-control p-3" id="datepicker" />
 
-                  {{-- <span class="input-group-append">
+                  <span class="input-group-append">
                       <span class="search-icon-position position-absolute p-3">
                           <iconify-icon class="search-icons" icon="solar:calendar-broken"></iconify-icon>
                       </span>
-                  </span> --}}
+                  </span>
 
               </div>
           </div>
           <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0">
               <label for="return-date" class="label-style text-capitalize form-label">Returning date</label>
               <div class="input-group date" id="datepicker2">
-                  <input type="text" class="form-control p-3" id="return-date" />
+                  <input type="text" class="form-control p-3" id="datepicker2" />
 
-                  {{-- <span class="input-group-append">
+                  <span class="input-group-append">
                       <span class="search-icon-position position-absolute p-3">
-                          <iconify-icon class="search-icons" icon="solar:calendar-broken"></iconify-icon>
+                          <iconify-icon  icon="solar:calendar-broken"></iconify-icon>
                       </span>
-                  </span> --}}
+                  </span>
 
               </div>
           </div>
@@ -129,6 +129,167 @@
                 </div>
             </div>
             <!-- Add more car items similarly -->
+            
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-2.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Subaru</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-3.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Cheverolet</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-4.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Cheverolet</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-5.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Subaru</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-6.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Cheverolet</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-7.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Cheverolet</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-8.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Subaru</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-9.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Cheverolet</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-10.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Cheverolet</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-11.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Subaru</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="car-wrap rounded ftco-animate">
+        <div class="img rounded d-flex align-items-end" style="background-image: url(frontend/images/car-12.jpg);">
+        </div>
+        <div class="text">
+            <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+            <div class="d-flex mb-3">
+                <span class="cat">Cheverolet</span>
+                <p class="price ml-auto">$500 <span>/day</span></p>
+            </div>
+            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+        </div>
+    </div>
+</div>
+            <!-- Add more car items similarly -->
+
         </div>
 
         <!-- Pagination -->
@@ -163,6 +324,15 @@ $(document).ready(function() {
         });
     });
 });
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+<script>
+$( function() {
+  $( "#datepicker" ).datepicker();
+  $( "#datepicker2" ).datepicker();
+
+} );
 </script>
 @include('frontend.include.includefooter')
 </body>

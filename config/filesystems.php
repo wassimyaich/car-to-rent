@@ -57,6 +57,15 @@ return [
             'throw' => false,
         ],
 
+
+        'frontend' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/frontend/pages'),
+            'url' => env('APP_URL').'/storage/frontend/pages',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
     ],
 
     /*

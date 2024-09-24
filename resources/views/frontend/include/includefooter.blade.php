@@ -22,9 +22,11 @@
 
 <div id='ftco-loader' class='show fullscreen'><svg class='circular' width='48px' height='48px'><circle class='path-bg' cx='24' cy='24' r='22' fill='none' stroke-width='4' stroke='#eeeeee'/><circle class='path' cx='24' cy='24' r='22' fill='none' stroke-width='4' stroke-miterlimit='10' stroke='#F96D00'/></svg></div>
  <!-- script new ================================================== -->
- <script src="frontend/searchcss/js/jquery-1.11.0.min.js"></script>
- <script src="frontend/searchcss/js/plugins.js"></script>
- <script src="frontend/searchcss/js/script.js"></script>
+ <script src="{{asset('frontend/searchcss/js/jquery-1.11.0.min.js')}}"></script>
+ <script src="{{asset('frontend/searchcss/js/plugins.js')}}"></script>
+ <script src="{{asset('frontend/searchcss/js/script.js')}}"></script>
+ <script src="{{asset('frontend/searchcss/js/modernizr.js')}}"></script>
+
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
      crossorigin="anonymous"></script>

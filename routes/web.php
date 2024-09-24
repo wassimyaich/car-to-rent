@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('frontend.index');
-});
+})->name('home');
 
 Route::get('/about', function () {
     return view('frontend.about');
@@ -29,4 +29,17 @@ Route::get('/blog', function () {
 });
 Route::get('/BlogSingle', function () {
     return view('frontend.blog-single');
+});
+
+
+use App\Http\Controllers\AuthController;
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('postlogin');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('postregister');
+Route::group(['prefix'=>'user','middleware'=>'auth:web'],function(){
+
+    Route::post('/logout',[AuthController::class,'logout'])->name('user.logout');
+
 });

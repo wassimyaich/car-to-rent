@@ -21,7 +21,10 @@ class Car extends Model
         'country_id',
         'state_id',
         'city_id',
+        'slug',
+        'keywords',
     ];
+    
 
 
     public function reservations()

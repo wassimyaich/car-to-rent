@@ -16,7 +16,7 @@
 
     {{-- //////////////////////// --}}
     <script src="frontend/searchcss/js/modernizr.js"></script>
-    <link rel="stylesheet" type="text/css" href="frontend/searchcss/css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('frontend/searchcss/css/vendor.css')}}">
  <!-- Link Swiper's CSS -->
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
@@ -26,10 +26,10 @@
  <link rel="stylesheet"
      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
- <!-- Style Sheet ================================================== -->
- <link rel="stylesheet" type="text/css" href="style.css">
 
- <!-- Google Fonts ================================================== -->
+ {{-- <link rel="stylesheet" type="text/css" href="{{asset('frontend/searchcss/style.css')}}"> --}}
+
+
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Raleway:wght@400;700&display=swap"
