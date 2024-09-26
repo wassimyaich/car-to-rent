@@ -5,14 +5,15 @@ namespace App\Filament\Resources;
 use App\Models\Car;
 use Filament\Forms;
 use App\Models\City;
-use Filament\Forms\Set;
 use Filament\Tables;
 use App\Models\State;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CarResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -29,62 +30,64 @@ class CarResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([
-            Forms\Components\Select::make('brand_id')
-                ->relationship('brand', 'name')
-                ->required(),
+            ->schema([
+                Forms\Components\Select::make('brand_id')
+                    ->relationship('brand', 'name')
+                    ->required(),
                 // ->maxLength(255),
-            Forms\Components\Select::make('category_id')
-                ->relationship('category', 'name')
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name')
 
-                ->required()
-                ,
-            Forms\Components\Select::make('type_id')
-                ->relationship('type', 'name')
-            ->required()
-                ,
+                    ->required(),
+                Forms\Components\Select::make('type_id')
+                    ->relationship('type', 'name')
+                    ->required(),
                 Forms\Components\Select::make('country_id')
-                            ->relationship(name: 'country', titleAttribute: 'name')
-                            ->searchable()
-                            ->preload()
-                            ->live()
-                            ->afterStateUpdated(function (Set $set) {
-                                $set('state_id', null);
-                                $set('city_id', null);
-                            })
-                            ->required(),
-                        Forms\Components\Select::make('state_id')
-                            ->options(fn (Get $get): Collection => State::query()
-                                ->where('country_id', $get('country_id'))
-                                ->pluck('name', 'id'))
-                            ->searchable()
-                            ->preload()
-                            ->live()
-                            ->afterStateUpdated(fn (Set $set) => $set('city_id', null))
-                            ->required(),
-                        Forms\Components\Select::make('city_id')
-                            ->options(fn (Get $get): Collection => City::query()
-                                ->where('state_id', $get('state_id'))
-                                ->pluck('name', 'id'))
-                            ->searchable()
-                            ->preload()
-                            ->required(),
-            Forms\Components\TextInput::make('year')
-                ->required()
-                ->numeric(),
-            Forms\Components\TextInput::make('license_plate')
-                ->required()
-                ->unique(ignorable: fn($record) => $record),
-            Forms\Components\TextInput::make('daily_rate')
-                ->required()
-                ->numeric(),
-            Forms\Components\Textarea::make('description')
-                ->columnSpanFull(),
-            Forms\Components\Toggle::make('is_available')
-                ->required(),
-            Forms\Components\Toggle::make('show_on_website')
-                ->required(),
-        ]);
+                    ->relationship(name: 'country', titleAttribute: 'name')
+                    ->searchable()
+                    ->preload()
+                    ->live()
+                    ->afterStateUpdated(function (Set $set) {
+                        $set('state_id', null);
+                        $set('city_id', null);
+                    })
+                    ->required(),
+                Forms\Components\Select::make('state_id')
+                    ->options(fn(Get $get): Collection => State::query()
+                        ->where('country_id', $get('country_id'))
+                        ->pluck('name', 'id'))
+                    ->searchable()
+                    ->preload()
+                    ->live()
+                    ->afterStateUpdated(fn(Set $set) => $set('city_id', null))
+                    ->required(),
+                // Forms\Components\Select::make('city_id')
+                //     ->options(fn(Get $get): Collection => City::query()
+                //         ->where('state_id', $get('state_id'))
+                //         ->pluck('name', 'id'))
+                //     ->searchable()
+                //     ->preload()
+                //     ,
+                Forms\Components\TextInput::make('year')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('license_plate')
+                    ->required()
+                    ->unique(ignorable: fn($record) => $record),
+                Forms\Components\TextInput::make('daily_rate')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\Textarea::make('description')
+                    ->columnSpanFull(),
+                Forms\Components\Toggle::make('is_available')
+                    ->required(),
+                Forms\Components\Toggle::make('show_on_website')
+                    ->required(),
+                    Forms\Components\FileUpload::make('image_path')
+                    ->image()
+                    ->storeFileNamesIn('storage')
+                    ->required(),
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -112,6 +115,14 @@ class CarResource extends Resource
                     ->boolean(),
                 Tables\Columns\IconColumn::make('show_on_website')
                     ->boolean(),
+                    Tables\Columns\ImageColumn::make('image_path')
+                    ->url(function (Car $record) {
+                        return asset(Storage::url($record->image_path));
+                    })
+                    ->label('Image')
+                    ->circular(),
+    
+                
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -49,9 +49,16 @@ class ReservationResource extends Resource
                 ->minDate(function (callable $get) {
                     return $get('start_date'); // Set min date for end date to be after start date
                 }),
+                Forms\Components\TextInput::make('phone')
+                ->required()
+                ->numeric(),
             Forms\Components\TextInput::make('total_cost')
                 ->required()
                 ->numeric(),
+                Forms\Components\TextInput::make('start_state')
+                ->required(),
+                Forms\Components\TextInput::make('end_state')
+                ->required(),
             Forms\Components\Select::make('status')
                 ->options([
                     'reserved' => 'Reserved',

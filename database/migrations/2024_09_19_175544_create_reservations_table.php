@@ -16,9 +16,13 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('phone');
             $table->foreignId('car_id')->constrained();
+            // $table->foreignId('state_id')->constrained()->cascadeOnDelete();
+            $table->string('start_state');
+            $table->string('end_state');
+
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->decimal('total_cost', 10, 2);
+            // $table->decimal('total_cost', 10, 2);
             $table->enum('status', ['reserved', 'active', 'completed', 'cancelled'])->default('active');
             $table->text('cancellation_reason')->nullable();
             $table->timestamps();

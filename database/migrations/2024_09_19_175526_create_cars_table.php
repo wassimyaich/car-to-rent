@@ -18,7 +18,9 @@ return new class extends Migration
             $table->foreignId('brand_id')->constrained()->cascadeOnDelete();
             $table->foreignId('country_id')->constrained()->cascadeOnDelete();
             $table->foreignId('state_id')->constrained()->cascadeOnDelete();
-            // $table->foreignId('city_id')->constrained()->cascadeOnDelete();
+            
+            $table->json('image_path');
+            $table->boolean('is_primary')->default(false);
             $table->integer('year');
             $table->string('license_plate')->unique();
             $table->decimal('daily_rate', 10, 2);

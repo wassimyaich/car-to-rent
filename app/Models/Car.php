@@ -23,8 +23,10 @@ class Car extends Model
         'city_id',
         'slug',
         'keywords',
+        'image_path',
+        'is_primary'
     ];
-    
+
 
 
     public function reservations()
@@ -85,5 +87,4 @@ class Car extends Model
     {
         return $this->belongsTo(City::class);
     }
-
 }

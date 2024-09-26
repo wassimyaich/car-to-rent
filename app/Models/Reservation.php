@@ -17,7 +17,10 @@ class Reservation extends Model
         'end_date',
         'total_cost',
         'status',
-        'cancellation_reason'
+        'cancellation_reason',
+        'phone',
+        'start_state',
+        'end_state'
     ];
 
     protected $casts = [
