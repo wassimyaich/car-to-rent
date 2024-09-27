@@ -33,13 +33,22 @@ Route::get('/BlogSingle', function () {
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('postlogin');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('postregister');
+
 Route::group(['prefix'=>'user','middleware'=>'auth:web'],function(){
 
     Route::post('/logout',[AuthController::class,'logout'])->name('user.logout');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
 
 });
+
+
+
+
+    
+
