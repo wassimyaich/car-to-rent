@@ -13,11 +13,15 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
+use Filament\Forms\Components\Repeater;
 use Illuminate\Support\Facades\Storage;
+use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CarResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CarResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class CarResource extends Resource
 {
@@ -59,7 +63,7 @@ class CarResource extends Resource
                     ->searchable()
                     ->preload()
                     ->live()
-                    ->afterStateUpdated(fn(Set $set) => $set('city_id', null))
+                    // ->afterStateUpdated(fn(Set $set) => $set('city_id', null))
                     ->required(),
                 // Forms\Components\Select::make('city_id')
                 //     ->options(fn(Get $get): Collection => City::query()
@@ -83,13 +87,30 @@ class CarResource extends Resource
                     ->required(),
                 Forms\Components\Toggle::make('show_on_website')
                     ->required(),
+                    // Forms\Components\FileUpload::make('image_path')
+                    // ->image()
+                    // ->storeFileNamesIn('storage')
+                    // ->required(),
+
                     Forms\Components\FileUpload::make('image_path')
-                    ->image()
-                    ->storeFileNamesIn('storage')
+                    ->columns(1)
+                    ->label('Car Images')
+                    ->multiple()
+                    ->minFiles(1)
+                    ->maxFiles(4)
+                    ->enableReordering()
+                    // ->sortable() // Allow reordering
+                    ->image() // Ensure it's an image
+                    ->directory('car-images') // Where to store the images
+                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                        return (string) str()->uuid() . "." . $file->extension();
+                    })
+                    
                     ->required(),
+                   
             ]);
     }
-
+   
     public static function table(Table $table): Table
     {
         return $table
@@ -115,12 +136,40 @@ class CarResource extends Resource
                     ->boolean(),
                 Tables\Columns\IconColumn::make('show_on_website')
                     ->boolean(),
-                    Tables\Columns\ImageColumn::make('image_path')
-                    ->url(function (Car $record) {
-                        return asset(Storage::url($record->image_path));
-                    })
-                    ->label('Image')
-                    ->circular(),
+                    // Tables\Columns\ImageColumn::make('image_path')
+                    // ->url(function (Car $record) {
+                    //     return asset(Storage::url("car-images/{$record->image_path}"));
+                    // })
+                    // ->label('Image')
+                    // ->circular(),
+                    ImageColumn::make('image_path')
+    ->url(function (Car $record) {
+        Log::info('Image path: ' . print_r($record->image_path, true));
+
+        // Directly use the image_paths array
+        $imagePaths = $record->image_path;
+
+        Log::info('Image paths: ' . print_r($imagePaths, true));
+
+        // Return the first image URL or a placeholder if none exists
+        return isset($imagePaths[0]) ? asset('storage/' . $imagePaths[0]) : null;
+    })
+    ->label('Image')
+    ->circular()
+    ->size(64),
+            //         Tables\Columns\ImageColumn::make('image_path')
+            // ->url(function (Car $record) {
+            //     Log::info('Image path: ' . $record->image_path);
+
+            //     // Decode the JSON string to get an array
+            //     $imagePaths = json_decode($record->image_path);
+            //     Log::info('Decoded image paths: ' . print_r($imagePaths, true));
+
+            //     // Return the first image URL or a placeholder if none exists
+            //     return isset($imagePaths[0]) ? asset('storage/' . $imagePaths[0]) : null;
+            // })
+            // ->label('Image')
+            // ->circular(),
     
                 
                 Tables\Columns\TextColumn::make('created_at')

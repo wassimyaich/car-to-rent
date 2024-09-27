@@ -28,6 +28,9 @@ class Car extends Model
     ];
 
 
+    protected $casts = [
+        'image_path'=> 'array',
+    ];
 
     public function reservations()
     {
