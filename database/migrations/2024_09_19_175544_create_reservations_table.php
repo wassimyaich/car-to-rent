@@ -17,13 +17,16 @@ return new class extends Migration
             $table->string('phone');
             $table->foreignId('car_id')->constrained();
             // $table->foreignId('state_id')->constrained()->cascadeOnDelete();
-            $table->string('start_state');
-            $table->string('end_state');
+            $table->string('pickup_location');
+            $table->string('dropoff_location');
 
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            // $table->decimal('total_cost', 10, 2);
-            $table->enum('status', ['reserved', 'active', 'completed', 'cancelled'])->default('active');
+            $table->decimal('total_cost', 10, 2)->nullable();
+            $table->enum('status', ['pending','reserved', 'active', 'completed', 'cancelled'])->default('pending');
+            $table->string('email')->nullable();  //add it
+            $table->enum('user_type', ['guest', 'registered'])->default('guest'); //add it
+            $table->string('payment_method')->nullable();//add it
             $table->text('cancellation_reason')->nullable();
             $table->timestamps();
         });

@@ -39,8 +39,20 @@ class StateSeeder extends Seeder
             array('name' => "Tataouine", 'country_id' => 222),
             array('name' => "Tunis", 'country_id' => 222),
             array('name' => "Zaghouan", 'country_id' => 222),
-            array('name' => "Mahdia", 'country_id' => 222)
-            
+            array('name' => "Mahdia", 'country_id' => 222),
+            //this is the list of aerport
+            array('name' => "Monastir Habib Bourguiba International Airport", 'country_id' => 222),
+            array('name' => "Djerba–Zarzis international Airport", 'country_id' => 222),
+            array('name' => "Sfax-Thyna International Airport", 'country_id' => 222),
+            array('name' => "Tozeur–Nefta International Airport", 'country_id' => 222),
+            array('name' => "Enfidha-Hammamet International Airport", 'country_id' => 222),
+            array('name' => "Gafsa-Ksar International Airport", 'country_id' => 222),
+            array('name' => "Tabarka–Aïn Draham International Airport", 'country_id' => 222),
+            array('name' => "Remada Airport", 'country_id' => 222),
+            array('name' => "Tunis-Carthage International Airport", 'country_id' => 222),
+            array('name' => "Gabès–Matmata International Airport", 'country_id' => 222),
+
+
         );
         DB::table('states')->insert($states);
     }

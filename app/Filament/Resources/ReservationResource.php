@@ -55,9 +55,9 @@ class ReservationResource extends Resource
             Forms\Components\TextInput::make('total_cost')
                 ->required()
                 ->numeric(),
-                Forms\Components\TextInput::make('start_state')
+                Forms\Components\TextInput::make('pickup_location')
                 ->required(),
-                Forms\Components\TextInput::make('end_state')
+                Forms\Components\TextInput::make('dropoff_location')
                 ->required(),
             Forms\Components\Select::make('status')
                 ->options([

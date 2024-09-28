@@ -10,6 +10,8 @@ class Car extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
+        'technical_inspection',
         'brand_id',
         'category_id',
         'type_id',
@@ -24,7 +26,8 @@ class Car extends Model
         'slug',
         'keywords',
         'image_path',
-        'is_primary'
+        'features',
+        'is_insured',
     ];
 
 

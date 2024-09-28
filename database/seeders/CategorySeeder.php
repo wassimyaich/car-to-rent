@@ -26,7 +26,20 @@ class CategorySeeder extends Seeder
             'Luxury car',
             'Sport Utility vehicles',
             'Station Wagon',
-            'Van'
+            'Van', 
+            'Truck',
+            'Family car',
+            
+            'Off-road vehicle',
+            'Electric vehicle',
+            'Hybrid',
+            
+            'City car',
+            'Estates',
+            'Hot hatch',
+            'Jeep',
+            'Limousine',
+            'Microcar',
         ];
 
         foreach ($categories as $category) {

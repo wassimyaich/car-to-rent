@@ -15,9 +15,7 @@ Route::get('/services', function () {
 Route::get('/pricing', function () {
     return view('frontend.pricing');
 });
-Route::get('/car', function () {
-    return view('frontend.car');
-});
+
 Route::get('/carSingle', function () {
     return view('frontend.car-single');
 });
@@ -32,6 +30,7 @@ Route::get('/BlogSingle', function () {
 });
 
 
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 
@@ -47,6 +46,9 @@ Route::group(['prefix'=>'user','middleware'=>'auth:web'],function(){
 
 });
 
+Route::get('/car', [CarController::class,'index'])->name('car.index');
+
+// function () {    return view('frontend.car');}    );
 
 
 

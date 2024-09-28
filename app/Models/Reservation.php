@@ -10,7 +10,7 @@ class Reservation extends Model
     use HasFactory;
 
 
-    protected $fillable =[
+    protected $fillable = [
         'user_id',
         'car_id',
         'start_date',
@@ -19,8 +19,10 @@ class Reservation extends Model
         'status',
         'cancellation_reason',
         'phone',
-        'start_state',
-        'end_state'
+        'pickup_location',
+        'dropoff_location',
+        'email',
+        'payment_method'
     ];
 
     protected $casts = [

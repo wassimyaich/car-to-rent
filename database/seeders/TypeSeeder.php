@@ -14,28 +14,13 @@ class TypeSeeder extends Seeder
     public function run(): void
     {
         $types = [
-            'SUV',
-            'Convertible',
-            'Hatchback',
-            'Coupe',
+            'gasoline',
+            'diesel',
+            'hybrid',
+            'electric',
             'Sedan',
-            'Sports car',
-            'Station wagon',
-            'Minivan',
-            'Crossover',
-            'Truck',
-            'Family car',
-            'Luxury car',
-            'Off-road vehicle',
-            'Electric vehicle',
-            'Hybrid',
-            'Van',
-            'City car',
-            'Estates',
-            'Hot hatch',
-            'Jeep',
-            'Limousine',
-            'Microcar',
+            'Hydrogen ',
+            
         ];
 
         foreach ($types as $type) {

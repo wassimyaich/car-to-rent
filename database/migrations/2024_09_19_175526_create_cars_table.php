@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
+            $table->string('name');   //add it 
+
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('type_id')->constrained()->cascadeOnDelete();
             $table->foreignId('brand_id')->constrained()->cascadeOnDelete();
             $table->foreignId('country_id')->constrained()->cascadeOnDelete();
             $table->foreignId('state_id')->constrained()->cascadeOnDelete();
-            
+            $table->dateTime('technical_inspection');   ///add it 
             $table->json('image_path');
-            $table->boolean('is_primary')->default(false);
+            
             $table->integer('year');
             $table->string('license_plate')->unique();
             $table->decimal('daily_rate', 10, 2);
@@ -29,6 +31,9 @@ return new class extends Migration
             $table->boolean('show_on_website')->default(true);
             $table->string('slug')->unique()->nullable();
             $table->text('keywords')->nullable();
+
+            $table->text('features')->nullable();  // Added features field
+    $table->boolean('is_insured')->default(true);  // Added insurance status 
             $table->timestamps();
         });
     }
