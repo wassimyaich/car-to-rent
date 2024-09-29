@@ -18,7 +18,7 @@
     object-fit: cover; /* This ensures the image fits nicely within the given dimensions */
 }
 
-    }
+   
         </style>
     @include('frontend.include.includeheader')
     <link rel="stylesheet" href="{{ asset('frontend/carsearch/css/linearicons.css') }}">
