@@ -58,4 +58,13 @@ class SearchBarFilter extends Component
         Log::info('Dropdown visibility after selected:', ['dropdownVisible' => $this->dropdownVisible]);
 
     }
+    public function hideDropdownDelayed()
+    {
+        // Add a small delay to allow for item selection before hiding
+        $this->dispatch('hideDropdown');
+    }
+      public function showDropdown()
+    {
+        $this->dropdownVisible = true;
+    }
 }
