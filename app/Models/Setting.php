@@ -34,5 +34,7 @@ class Setting extends Model
         'paypal_client_id',
         'paypal_client_secret',
         'paypal_mode',
+        'email',
+        'address'
     ];
 }

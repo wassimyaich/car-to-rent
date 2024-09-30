@@ -201,7 +201,7 @@
             <div class="sidebar-box ftco-animate">
               <h3>Recent Blog</h3>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(frontend/images/image_1.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url('{{ asset('/storage/frontend/pages/' . \App\Models\Setting::first()->blog_single_image) }}');></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
                   <div class="meta">

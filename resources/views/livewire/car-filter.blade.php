@@ -128,14 +128,36 @@
                         </select>
                     </div>
                     <div class="pagination">
-                        <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                        <a href="#">6</a>
-                        <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                        {{-- Previous Page Link (hide when on the first page) --}}
+                        @if (!$cars->onFirstPage())
+                            <a href="#" class="prev-arrow" wire:click.prevent="previousPage"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+                        @endif
+                    
+                        {{-- Pagination Elements --}}
+                        @foreach ($cars->links()->elements as $element)
+                            {{-- "Three Dots" Separator --}}
+                            @if (is_string($element))
+                                <a href="#" class="dot-dot" wire:click.prevent><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                            @endif
+                    
+                            {{-- Array Of Links --}}
+                            @if (is_array($element))
+                                @foreach ($element as $page => $url)
+                                    @if ($page == $cars->currentPage())
+                                        <a href="#" class="active">{{ $page }}</a>
+                                    @else
+                                        <a href="#" wire:click.prevent="gotoPage({{ $page }})">{{ $page }}</a>
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                    
+                        {{-- Next Page Link (hide when on the last page) --}}
+                        @if ($cars->hasMorePages())
+                            <a href="#" class="next-arrow" wire:click.prevent="nextPage"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                        @endif
                     </div>
+                    
                 </div>
                 <!-- End Filter Bar -->
                 <!-- Start Best Seller -->
@@ -195,7 +217,8 @@
                             <option value="1">Show 12</option>
                         </select>
                     </div>
-                    <div class="pagination">
+                    {{-- Start pagination  --}}
+                    {{-- <div class="pagination">
                         <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left"
                                 aria-hidden="true"></i></a>
                         <a href="#" class="active">1</a>
@@ -206,7 +229,45 @@
                         <a href="#">6</a>
                         <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right"
                                 aria-hidden="true"></i></a>
+                             
+                        {{$cars->links()}}
+                    </div> --}}
+
+                    <div class="pagination">
+                        {{-- Previous Page Link (hide when on the first page) --}}
+                        @if (!$cars->onFirstPage())
+                            <a href="#" class="prev-arrow" wire:click.prevent="previousPage"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+                        @endif
+                    
+                        {{-- Pagination Elements --}}
+                        @foreach ($cars->links()->elements as $element)
+                            {{-- "Three Dots" Separator --}}
+                            @if (is_string($element))
+                                <a href="#" class="dot-dot" wire:click.prevent><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                            @endif
+                    
+                            {{-- Array Of Links --}}
+                            @if (is_array($element))
+                                @foreach ($element as $page => $url)
+                                    @if ($page == $cars->currentPage())
+                                        <a href="#" class="active">{{ $page }}</a>
+                                    @else
+                                        <a href="#" wire:click.prevent="gotoPage({{ $page }})">{{ $page }}</a>
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                    
+                        {{-- Next Page Link (hide when on the last page) --}}
+                        @if ($cars->hasMorePages())
+                            <a href="#" class="next-arrow" wire:click.prevent="nextPage"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                        @endif
                     </div>
+                    
+                    
+
+
+                    {{-- End pagination  --}}
                 </div>
                 <!-- End Filter Bar -->
             </div>
@@ -301,7 +362,7 @@
             noUiSlider.create(nonLinearSlider, {
                 connect: true,
                 behaviour: 'tap',
-                start: [0, 100],
+                start: [0, 1000],
                 range: {
                     'min': [0],
                     // '10%': [500, 500],
@@ -322,6 +383,18 @@
                 // Update Livewire properties
                 @this.updatePriceRange(parseInt(values[0]), parseInt(values[1]));
             });
+
+             // Listen for the updateMaxDailyRate event from Livewire
+             Livewire.on('updateMaxDailyRate', () => {
+                const maxRate = @this.getMaxDailyRate; // Get current max daily rate
+                nonLinearSlider.noUiSlider.updateOptions({
+                    range: {
+                        'max': [maxRate] // Update max value dynamically
+                    }
+                });
+            });
+
+
         }
     });
 </script>

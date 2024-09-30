@@ -18,6 +18,7 @@ class CarFilter extends Component
 
     use WithPagination;
     
+
     #[Url]
     public $selected_brands=[];
     public $search_state = '';
@@ -26,7 +27,11 @@ class CarFilter extends Component
     // New properties for price range
     public $minPrice = 1; // Default minimum price
     public $maxPrice = 1000; // Default maximum price
-    
+    public function updatedSelectedBrands()
+    {
+        // Reset pagination to page 1 when the selected brands change
+        $this->resetPage();
+    }
     public function render()
     {
         $cars = Car::paginate(9);
@@ -93,13 +98,14 @@ class CarFilter extends Component
     $this->minPrice = $minPrice;
     $this->maxPrice = $maxPrice;
 }
-
+public function getMaxDailyRateProperty()
+    {
+        return Car::when($this->selected_brands, function ($query) {
+            return $query->whereIn('brand_id', $this->selected_brands);
+        })->max('daily_rate');
+    }
 }
 
 
 
 
-// public function mount()
-// {
-//     $this->on('updatePriceRange', 'updatePriceRange');
-// }

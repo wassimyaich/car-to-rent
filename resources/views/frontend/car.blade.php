@@ -41,7 +41,7 @@
 <body id="category">
 
     @include('frontend.header.header')
-    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('frontend/images/bg_3.jpg');"
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image:  url('{{ asset('/storage/frontend/pages/' . \App\Models\Setting::first()->car_image) }}');"
         data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
