@@ -35,6 +35,29 @@ class Setting extends Model
         'paypal_client_secret',
         'paypal_mode',
         'email',
-        'address'
+        'address',
+        'meta_description',
+        'meta_keywords',
+        // Social media links
+        'facebook_link',
+        'twitter_link',
+        'instagram_link',
+        'linkedin_link',
+
+        // Analytics
+        'google_analytics_id',
+
+        // Theme settings
+        'primary_color',
+        'secondary_color',
+        'font_family',
+
+        // Other settings
+        'maintenance_mode',
+        'maintenance_message',
+        'custom_css',
+        'custom_js'
+
+
     ];
 }

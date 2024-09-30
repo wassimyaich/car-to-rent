@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
+    <title>{{\App\Models\Setting::first()->site_title}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    {{-- start meta  --}}
+
+    <meta name="description" content="A brief description of your webpage.">
+  
+
+    <link rel="icon" href="/storage/frontend/pages/{{App\Models\Setting::first()->favicon}}" type="image/x-icon">
+    <script src="script.js" defer></script>
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="{{\App\Models\Setting::first()->meta_keywords}}">
+    <meta property="og:description" content="{{\App\Models\Setting::first()->meta_description}}">
+    <meta property="og:image" content="image.jpg">
+    <meta property="og:url" content="https://yourwebsite.com">
+
+    @livewireStyles
+
+    {{-- end meta  --}}
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 <!-- CSS Files in frontend/css -->
 <link rel="stylesheet" href="{{ asset('frontend/css/open-iconic-bootstrap.min.css') }}">
@@ -46,77 +61,7 @@
       </div>
     </div>
 
-     <section class="ftco-section ftco-no-pt bg-light">
-    	<div class="container">
-    		<div class="row no-gutters">
-    			<div class="col-md-12	featured-top">
-    				<div class="row no-gutters">
-	  					<div class="col-md-4 d-flex align-items-center">
-	  						<form action="#" class="request-form ftco-animate bg-primary">
-		          		<h2>Make your trip</h2>
-			    				<div class="form-group">
-			    					<label for="" class="label">Pick-up location</label>
-			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
-			    				</div>
-			    				<div class="form-group">
-			    					<label for="" class="label">Drop-off location</label>
-			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
-			    				</div>
-			    				<div class="d-flex">
-			    					<div class="form-group mr-2">
-			                <label for="" class="label">Pick-up date</label>
-			                <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
-			              </div>
-			              <div class="form-group ml-2">
-			                <label for="" class="label">Drop-off date</label>
-			                <input type="text" class="form-control" id="book_off_date" placeholder="Date">
-			              </div>
-		              </div>
-		              <div class="form-group">
-		                <label for="" class="label">Pick-up time</label>
-		                <input type="text" class="form-control" id="time_pick" placeholder="Time">
-		              </div>
-			            <div class="form-group">
-			              <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
-			            </div>
-			    			</form>
-	  					</div>
-	  					<div class="col-md-8 d-flex align-items-center">
-	  						<div class="services-wrap rounded-right w-100">
-	  							<h3 class="heading-section mb-4">Better Way to Rent Your Perfect Cars</h3>
-	  							<div class="row d-flex mb-4">
-					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-					            <div class="services w-100 text-center">
-				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
-				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Choose Your Pickup Location</h3>
-				                </div>
-					            </div>      
-					          </div>
-					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-					            <div class="services w-100 text-center">
-				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
-				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Select the Best Deal</h3>
-					              </div>
-					            </div>      
-					          </div>
-					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-					            <div class="services w-100 text-center">
-				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
-				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Reserve Your Rental Car</h3>
-					              </div>
-					            </div>      
-					          </div>
-					        </div>
-					        <p><a href="#" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
-	  						</div>
-	  					</div>
-	  				</div>
-				</div>
-  		</div>
-    </section>
+     @livewire('search-date-index')
 
 
     <section class="ftco-section ftco-no-pt bg-light">
@@ -468,6 +413,8 @@
   <script src="{{ asset('frontend/js/google-map.js') }}"></script>
   <script src="{{ asset('frontend/js/main.js') }}"></script>
   
-    
+  @livewireScripts
+
+
   </body>
 </html>
