@@ -32,6 +32,7 @@ Route::get('/BlogSingle', function () {
 
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -43,7 +44,7 @@ Route::group(['prefix'=>'user','middleware'=>'auth:web'],function(){
 
     Route::post('/logout',[AuthController::class,'logout'])->name('user.logout');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
-
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 });
 
 Route::get('/car', [CarController::class,'index'])->name('car.index');

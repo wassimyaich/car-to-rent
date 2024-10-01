@@ -33,9 +33,20 @@
           <li class="nav-item"><a href="about" class="nav-link">About</a></li>
           <li class="nav-item"><a href="services" class="nav-link">Services</a></li>
           <li class="nav-item"><a href="pricing" class="nav-link">Pricing</a></li>
-          <li class="nav-item"><a href="car.html" class="nav-link">Cars</a></li>
-          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="car" class="nav-link">Cars</a></li>
+          <li class="nav-item"><a href="blog" class="nav-link">Blog</a></li>
+          <li class="nav-item"><a href="contact" class="nav-link">Contact</a></li>
+
+           <!-- Cart Icon -->
+           <li class="nav-item">
+            <a href="{{ route('cart.index') }}" class="nav-link">
+                <iconify-icon icon="mdi:cart-outline" width="24" height="24"></iconify-icon>
+                <span class="badge badge-pill bg-primary" id="cart-count">
+                    {{-- {{ \Cart::getTotalQuantity() }} --}}
+                </span>
+            </a>
+        </li>
+        
         </ul>
       </div>
 {{-- start login   --}}
@@ -293,7 +304,7 @@
  <!-- script new ================================================== -->
  <script src="{{asset('frontend/searchcss/js/jquery-1.11.0.min.js')}}"></script>
  <script src="{{asset('frontend/searchcss/js/plugins.js')}}"></script>
- <script src="{{asset('frontend/searchcss/js/script.js')}}"></script>
+ {{-- <script src="{{asset('frontend/searchcss/js/script.js')}}"></script> --}}
  <script src="{{asset('frontend/searchcss/js/modernizr.js')}}"></script>
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
