@@ -40,9 +40,10 @@
            <!-- Cart Icon -->
            <li class="nav-item">
             <a href="{{ route('cart.index') }}" class="nav-link">
-                <iconify-icon icon="mdi:cart-outline" width="24" height="24"></iconify-icon>
+                <iconify-icon icon="mdi:cart-outline" width="20" height="20"></iconify-icon>
                 <span class="badge badge-pill bg-primary" id="cart-count">
-                    {{-- {{ \Cart::getTotalQuantity() }} --}}
+                    {{ App\Models\Reservation::where('user_id', Auth::id())->count() }}
+
                 </span>
             </a>
         </li>

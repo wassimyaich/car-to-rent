@@ -3,55 +3,58 @@
         <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-5">
                 <div class="sidebar-categories">
-                    <div class="head">Browse Categories</div>
-                    <ul class="main-categories">
-                        <li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable"
-                                aria-expanded="false" aria-controls="fruitsVegetable"><span
-                                    class="lnr lnr-arrow-right"></span>Brands<span
-                                    class="number">({{ \App\Models\Brand::count() }})</span></a>
-                            <ul class="collapse" id="fruitsVegetable" data-toggle="collapse" aria-expanded="false"
-                                aria-controls="fruitsVegetable">
-                                {{-- {{json_encode($selected_brands)}}
+                    <div class="head">Types Categories</div>
+                    {{-- checkbox here  --}}
+                  
+                    <div class="main-categories">
+                        <h4 class="mb-3" id="brandsToggle" style="cursor: pointer;">
+                            Brands
+                        </h4>
+                        <div id="brandsList">
+                            <ul>
                                 @foreach ($brands as $brand)
-                                    <li wire:model.live="selected_brands" class="main-nav-list child"><a href="#">{{ $brand->name }}<span
-                                                class="number">({{ \App\Models\Car::whereHas('brand', function ($query) use ($brand) {
+                                    <li class="mb-3" wire:key="{{ $brand->id }}">
+                                        <div class="form-check">
+                                            <input wire:model.live="selected_brands" class="form-check-input" type="checkbox" value="{{ $brand->id }}" id="brand{{ $brand->id }}">
+                                            <label class="form-check-label" for="brand{{ $brand->id }}">
+                                                {{ $brand->name }}
+                                                ({{ \App\Models\Car::whereHas('brand', function ($query) use ($brand) {
                                                     $query->where('name', $brand->name);
-                                                })->count() }})</span></a>
+                                                })->count() }})
+                                            </label>
+                                        </div>
                                     </li>
-                                @endforeach --}}
-
-
+                                @endforeach
                             </ul>
-                        </li>
-
-
-                        <li class="main-nav-list"><a href="#">Pet Care<span class="number">(29)</span></a>
-                        </li>
-
-                    </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="sidebar-filter mt-50">
-                    <div class="top-filter-head">Product Filters</div>
-                    <div class="common-filter">
-                        <div class="head">Brands({{ \App\Models\Brand::count() }})</div>
-                        {{-- {{json_encode($selected_brands)}} --}}
+                    <div class="top-filter-head">Price Filters</div>
+                    {{-- <div class="common-filter">
+                        <div class="head">                        <h4 class="mb-3">Brands({{ \App\Models\Brand::count() }})</h4>
+                            </div>
+                        
 
-                     
+                         <div class="main-categories">   
                         <ul>
                             @foreach ($brands as $brand)
-                            <li class="mb-4" wire:key="{{$brand->id}}">
-                            <input wire:model.live="selected_brands" class="form-check-input" type="checkbox" value="{{$brand->id}}" id="{{$brand->id}}">
-                            <label class="form-check-label" for="{{ $brand->id }}">
-                                {{ $brand->name }} ({{ \App\Models\Car::whereHas('brand', function ($query) use ($brand) {
-                                    $query->where('name', $brand->name);
-                                })->count() }})
-                            </label>
-                            </li>
+                                <li class="mb-4" wire:key="{{ $brand->id }}">
+                                    <input wire:model.live="selected_brands" class="form-check-input" type="checkbox"
+                                        value="{{ $brand->id }}" id="{{ $brand->id }}">
+                                    <label class="form-check-label" for="{{ $brand->id }}">
+                                        {{ $brand->name }}
+                                        ({{ \App\Models\Car::whereHas('brand', function ($query) use ($brand) {
+                                            $query->where('name', $brand->name);
+                                        })->count() }})
+                                    </label>
+                                </li>
                             @endforeach
                         </ul>
-                     
-                    </div>
-                    <div class="common-filter">
+                    </div>   
+
+                    </div> --}}
+                    {{-- <div class="common-filter">
                         <div class="head">Color</div>
                         <form action="#">
                             <ul>
@@ -59,8 +62,8 @@
                                         name="color"><label for="black">Black<span>(29)</span></label></li>
                             </ul>
                         </form>
-                    </div>
-                    
+                    </div> --}}
+
                     {{-- <div class="common-filter" wire:ignore>
                         <div class="head">Price</div>
                         <div class="price-range-area">
@@ -89,75 +92,68 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="col-xl-9 col-lg-8 col-md-7">
                 <!-- Start Filter Bar -->
-                {{-- @livewire('search-bar-filter') --}}
+                {{-- @livewire('search-bar-filter')  --}}
                 <div class="filter-bar d-flex flex-wrap align-items-center">
-    
-                   
-                    <div class="sorting position-relative">
-                        <div class="dropdown">
-                            <input 
-                                type="text" 
-                                wire:model.live="search_state" 
-                                placeholder="Search and select a state..." 
-                                class="form-control"
-                                wire:focus="showDropdown"
-                                wire:blur="hideDropdownDelayed"
-                            />
-                            @if($dropdownVisible)
-                                <ul class="dropdown-menu w-100 show">
-                                    @forelse($states as $state)
-                                        <li><a class="dropdown-item" wire:click.prevent="selectState('{{ $state->name }}')">{{ $state->name }}</a></li>
-                                    @empty
-                                        <li><a class="dropdown-item disabled">No states found</a></li>
-                                    @endforelse
-                                </ul>
-                            @endif
+
+
+                    <div class="sorting">
+                        <div class="input-group">
+                            <input type="text" wire:model.live="search_car" placeholder="Search and select a car..."
+                                class="form-control" />
+
                         </div>
                     </div>
-                    
-                    <div class="sort mr-auto">
-                        <select>
-                            <option value="12">Show 12</option>
-                            <option value="24">Show 24</option>
-                            <option value="36">Show 36</option>
+
+                    <div wire:ignore class="sorting mr-auto">
+                        <select class="form-control" onchange="@this.set('carsPerPage', this.value)">
+                            <option value="9">Show 9</option>
+                            <option value="15">Show 15</option>
+                            <option value="21">Show 21</option>
                         </select>
                     </div>
+
+
+
                     <div class="pagination">
                         {{-- Previous Page Link (hide when on the first page) --}}
                         @if (!$cars->onFirstPage())
-                            <a href="#" class="prev-arrow" wire:click.prevent="previousPage"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+                            <a href="#" class="prev-arrow" wire:click.prevent="previousPage"><i
+                                    class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
                         @endif
-                    
+
                         {{-- Pagination Elements --}}
                         @foreach ($cars->links()->elements as $element)
                             {{-- "Three Dots" Separator --}}
                             @if (is_string($element))
-                                <a href="#" class="dot-dot" wire:click.prevent><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                                <a href="#" class="dot-dot" wire:click.prevent><i class="fa fa-ellipsis-h"
+                                        aria-hidden="true"></i></a>
                             @endif
-                    
+
                             {{-- Array Of Links --}}
                             @if (is_array($element))
                                 @foreach ($element as $page => $url)
                                     @if ($page == $cars->currentPage())
                                         <a href="#" class="active">{{ $page }}</a>
                                     @else
-                                        <a href="#" wire:click.prevent="gotoPage({{ $page }})">{{ $page }}</a>
+                                        <a href="#"
+                                            wire:click.prevent="gotoPage({{ $page }})">{{ $page }}</a>
                                     @endif
                                 @endforeach
                             @endif
                         @endforeach
-                    
+
                         {{-- Next Page Link (hide when on the last page) --}}
                         @if ($cars->hasMorePages())
-                            <a href="#" class="next-arrow" wire:click.prevent="nextPage"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                            <a href="#" class="next-arrow" wire:click.prevent="nextPage"><i
+                                    class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                         @endif
                     </div>
-                    
+
                 </div>
                 <!-- End Filter Bar -->
                 <!-- Start Best Seller -->
@@ -173,11 +169,9 @@
                                     <div class="product-details">
 
                                         <h6 class="mb-0"><a href="#">{{ $car->name }}</a></h6>
-                                        <div class="d-flex mb-3"><span
-                                                class="cat">{{ $car->type->name }}</span>
+                                        <div class="d-flex mb-3"><span class="cat">{{ $car->type->name }}</span>
                                             <p class="price ml-auto">{{ $car->daily_rate }}<span>/day</span></p>
-                                            <input type="hidden" name="state_name"
-                                                value="{{ $car->state->name }}">
+                                            <input type="hidden" name="state_name" value="{{ $car->state->name }}">
                                         </div>
                                         <div class="brand">
                                             <h6>{{ $car->brand->name }}</h6>
@@ -210,11 +204,11 @@
                 </section>
 
                 <div class="filter-bar d-flex flex-wrap align-items-center">
-                    <div class="sorting mr-auto">
-                        <select>
-                            <option value="1">Show 12</option>
-                            <option value="1">Show 12</option>
-                            <option value="1">Show 12</option>
+                    <div wire:ignore class="sorting mr-auto">
+                        <select class="form-control" onchange="@this.set('carsPerPage', this.value)">
+                            <option value="9">Show 9</option>
+                            <option value="15">Show 15</option>
+                            <option value="21">Show 21</option>
                         </select>
                     </div>
                     {{-- Start pagination  --}}
@@ -236,35 +230,39 @@
                     <div class="pagination">
                         {{-- Previous Page Link (hide when on the first page) --}}
                         @if (!$cars->onFirstPage())
-                            <a href="#" class="prev-arrow" wire:click.prevent="previousPage"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+                            <a href="#" class="prev-arrow" wire:click.prevent="previousPage"><i
+                                    class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
                         @endif
-                    
+
                         {{-- Pagination Elements --}}
                         @foreach ($cars->links()->elements as $element)
                             {{-- "Three Dots" Separator --}}
                             @if (is_string($element))
-                                <a href="#" class="dot-dot" wire:click.prevent><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                                <a href="#" class="dot-dot" wire:click.prevent><i class="fa fa-ellipsis-h"
+                                        aria-hidden="true"></i></a>
                             @endif
-                    
+
                             {{-- Array Of Links --}}
                             @if (is_array($element))
                                 @foreach ($element as $page => $url)
                                     @if ($page == $cars->currentPage())
                                         <a href="#" class="active">{{ $page }}</a>
                                     @else
-                                        <a href="#" wire:click.prevent="gotoPage({{ $page }})">{{ $page }}</a>
+                                        <a href="#"
+                                            wire:click.prevent="gotoPage({{ $page }})">{{ $page }}</a>
                                     @endif
                                 @endforeach
                             @endif
                         @endforeach
-                    
+
                         {{-- Next Page Link (hide when on the last page) --}}
                         @if ($cars->hasMorePages())
-                            <a href="#" class="next-arrow" wire:click.prevent="nextPage"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                            <a href="#" class="next-arrow" wire:click.prevent="nextPage"><i
+                                    class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                         @endif
                     </div>
-                    
-                    
+
+
 
 
                     {{-- End pagination  --}}
@@ -338,10 +336,8 @@
                                     </div>
                                     <div class="d-flex mt-20">
                                         <a href="#" class="view-btn color-2"><span>Add to Cart</span></a>
-                                        <a href="#" class="like-btn"><span
-                                                class="lnr lnr-layers"></span></a>
-                                        <a href="#" class="like-btn"><span
-                                                class="lnr lnr-heart"></span></a>
+                                        <a href="#" class="like-btn"><span class="lnr lnr-layers"></span></a>
+                                        <a href="#" class="like-btn"><span class="lnr lnr-heart"></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -373,7 +369,7 @@
 
             var nodes = [
                 document.getElementById('lower-value'), // 0
-                document.getElementById('upper-value')  // 1
+                document.getElementById('upper-value') // 1
             ];
 
             // Display the slider value and update Livewire properties
@@ -384,8 +380,8 @@
                 @this.updatePriceRange(parseInt(values[0]), parseInt(values[1]));
             });
 
-             // Listen for the updateMaxDailyRate event from Livewire
-             Livewire.on('updateMaxDailyRate', () => {
+            // Listen for the updateMaxDailyRate event from Livewire
+            Livewire.on('updateMaxDailyRate', () => {
                 const maxRate = @this.getMaxDailyRate; // Get current max daily rate
                 nonLinearSlider.noUiSlider.updateOptions({
                     range: {
@@ -398,5 +394,13 @@
         }
     });
 </script>
-
-
+<script>
+    document.getElementById('brandsToggle').addEventListener('click', function() {
+        var brandsList = document.getElementById('brandsList');
+        if (brandsList.style.display === 'none') {
+            brandsList.style.display = 'block';
+        } else {
+            brandsList.style.display = 'none';
+        }
+    });
+</script>

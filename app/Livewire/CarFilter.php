@@ -21,20 +21,33 @@ class CarFilter extends Component
 
     #[Url]
     public $selected_brands=[];
-    public $search_state = '';
-    public $dropdownVisible = false; // To control dropdown visibility
-    public $lastSelectedState = '';
+    // public $search_state = '';
+    public $search_car = '';
+    public $carsPerPage = 9; // Default number of cars per page
     // New properties for price range
     public $minPrice = 1; // Default minimum price
     public $maxPrice = 1000; // Default maximum price
+
     public function updatedSelectedBrands()
     {
         // Reset pagination to page 1 when the selected brands change
         $this->resetPage();
     }
+
+    public function updatedCarsPerPage()
+    {
+        Log::info('pagination', ['carsPerPage' => $this->carsPerPage]); // Corrected log statement
+        $this->resetPage();
+    }
+
+    public function updatedSearchCar()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
-        $cars = Car::paginate(9);
+        // $cars = Car::paginate(9);
       
         // $maxDailyRate = Car::max('daily_rate'); // Get the maximum daily rate
         $maxDailyRate = Car::when($this->selected_brands, function ($query) {
@@ -45,22 +58,14 @@ class CarFilter extends Component
                     ->when($this->selected_brands, function ($query) {
                         return $query->whereIn('brand_id', $this->selected_brands);
                     })
-                    ->paginate(9);
+                    ->when($this->search_car, function ($query) {
+                        return $query->where('name', 'like', '%' . $this->search_car . '%');
+                    })
+                    ->paginate($this->carsPerPage);
     
-        $states = [];
-        Log::info('Rendering component with search state:', ['search_state' => $this->search_state]);
-    
-        // Show the dropdown if the search input has 1 or more characters
-        if (strlen($this->search_state) >= 1 && $this->search_state !== $this->lastSelectedState) {
-           
-            // Query the states based on the search input
-            $states = State::where('name', 'like', '%' . $this->search_state . '%')->limit(5)->get();
-            // Set dropdown visibility based on whether any states are found
-            $this->dropdownVisible = count($states) > 0;
-        } else {
-            // Hide dropdown if search input is empty
-            $this->dropdownVisible = false;
-        }
+       
+       
+       
     
 
         
@@ -70,28 +75,10 @@ class CarFilter extends Component
         $categories = Category::all();
         
 
-        return view('livewire.car-filter', compact("cars", "states", "brands", "types", "categories","maxDailyRate"));
+        return view('livewire.car-filter', compact("cars", "brands", "types", "categories","maxDailyRate"));
     }
-    public function hideDropdownDelayed()
-    {
-        // Add a small delay to allow for item selection before hiding
-        $this->dispatch('hideDropdown');
-    }
-      public function showDropdown()
-    {
-        $this->dropdownVisible = true;
-    }
-    public function selectState($stateName)
-    {
-        Log::info('State selected:', ['stateName' => $stateName]);
-        // Set the selected state name in the search input
-        $this->search_state = $stateName;
-        // Hide the dropdown after selecting the state
-        $this->dropdownVisible = false;
-        $this->lastSelectedState = $stateName;
-        Log::info('Dropdown visibility after selected:', ['dropdownVisible' => $this->dropdownVisible]);
-
-    }
+   
+   
 
     public function updatePriceRange($minPrice, $maxPrice)
 {
