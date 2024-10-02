@@ -68,12 +68,12 @@
                                     <div class="form-group mr-2">
                                     <label for="" class="label">Pick-up time</label>
                                    
-                                        <input wire:model="pickupTime" type="time" id="time_picker" class="form-control" value="10:05 AM" />
+                                        <input wire:model="pickuptime" type="time" id="time_picker" class="form-control" value="10:05 AM" />
                                     </div>
                                     <div class="form-group ml-2">
                                         <label for="" class="label">Drop-off time</label>
                                         
-                                            <input wire:model="dropoffTime" type="time" id="time_drop" class="form-control" value="10:05 AM" />
+                                            <input wire:model="dropofftime" type="time" id="time_drop" class="form-control" value="10:05 AM" />
                                         </div>
                                 </div>
                                 <div class="form-group">
@@ -148,7 +148,7 @@
             noCalendar: true,
             dateFormat: "H:i",
             onChange: function(selectedDates, dateStr) {
-                @this.set('pickupTime', dateStr); // Set pickupTime in Livewire
+                @this.set('pickuptime', dateStr); // Set pickuptime in Livewire
             }
         });
 
@@ -157,15 +157,8 @@
             noCalendar: true,
             dateFormat: "H:i",
             onChange: function(selectedDates, dateStr) {
-                @this.set('dropoffTime', dateStr); // Set dropoffTime in Livewire
+                @this.set('dropofftime', dateStr); // Set dropofftime in Livewire
             }
         });
     });
 </script>
-{{-- <script>
-    $('#book_pick_date,#book_off_date').datepicker({
-        'format': 'm/d/yyyy',
-        'autoclose': true
-    });
-    $('#time_pick').timepicker();
-</script> --}}

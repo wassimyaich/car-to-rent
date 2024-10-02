@@ -27,8 +27,9 @@ class CarController extends Controller
         $dropOffDate = $request->dropoffDate;
         Log::info('pickUpLocation is', ['data' => $dropOffDate]);
 
-        $pickUpTime = $request->pickupTime;
-        Log::info('pickUpLocation is', ['data' => $pickUpTime]);
+        $pickuptime = $request->pickuptime;
+        Log::info('pickUpLocation is', ['data' => $pickuptime]);
+        $dropofftime = $request->dropofftime;
 
 
 
@@ -37,7 +38,7 @@ class CarController extends Controller
         $brands = Brand::all();
         $types = Type::all();
         $categories = Category::all();
-        return view("frontend.car", compact("cars", "states", "brands", "types", "categories",'pickUpLocation', 'dropOffLocation', 'pickUpDate', 'dropOffDate', 'pickUpTime'));
+        return view("frontend.car", compact("cars", "states", "brands", "types", "categories",'pickUpLocation', 'dropOffLocation', 'pickUpDate', 'dropOffDate', 'pickuptime','dropofftime'));
 
     }
 }

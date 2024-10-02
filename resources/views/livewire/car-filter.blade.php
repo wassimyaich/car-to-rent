@@ -5,17 +5,19 @@
                 <div class="sidebar-categories">
                     <div class="head">Types Categories</div>
                     {{-- checkbox here  --}}
-                  
-                    <div class="main-categories" style="margin-top: 20px;" >
+
+                    <div class="main-categories" style="margin-top: 20px;">
                         <h6 class="mb-3" id="brandsToggle" style="cursor: pointer;">
                             Brands({{ \App\Models\Brand::count() }})
                         </h6>
-                        <div id="brandsList" >
+                        <div id="brandsList">
                             <ul>
                                 @foreach ($brands as $brand)
                                     <li class="mb-3" wire:key="{{ $brand->id }}">
                                         <div class="form-check">
-                                            <input wire:model.live="selected_brands" class="form-check-input" type="checkbox" value="{{ $brand->id }}" id="brand{{ $brand->id }}">
+                                            <input wire:model.live="selected_brands" class="form-check-input"
+                                                type="checkbox" value="{{ $brand->id }}"
+                                                id="brand{{ $brand->id }}">
                                             <label class="form-check-label" for="brand{{ $brand->id }}">
                                                 {{ $brand->name }}
                                                 ({{ \App\Models\Car::whereHas('brand', function ($query) use ($brand) {
@@ -27,19 +29,21 @@
                                 @endforeach
                             </ul>
 
-                           
+
                         </div>
 
-                        <h6 class="mb-3" id="typesToggle" style="cursor: pointer;" >
+                        <h6 class="mb-3" id="typesToggle" style="cursor: pointer;">
                             Types({{ \App\Models\Type::count() }})
                         </h6>
                         <div id="typesList">
-                            
+
                             <ul>
                                 @foreach ($types as $type)
                                     <li class="mb-3" wire:key="{{ $type->id }}">
                                         <div class="form-check">
-                                            <input wire:model.live="selected_types" class="form-check-input" type="checkbox" value="{{ $type->id }}" id="type{{ $type->id }}">
+                                            <input wire:model.live="selected_types" class="form-check-input"
+                                                type="checkbox" value="{{ $type->id }}"
+                                                id="type{{ $type->id }}">
                                             <label class="form-check-label" for="brand{{ $type->id }}">
                                                 {{ $type->name }}
                                                 ({{ \App\Models\Car::whereHas('type', function ($query) use ($type) {
@@ -51,43 +55,49 @@
                                 @endforeach
                             </ul>
                         </div>
-                               
-                                    
 
-                                    <div class="form-group ml-2">
-                                        <label for="" class="label">Pick-up date</label>
-                                        <input wire:model="pickupDate" type="text" class="form-control datepicker"
-                                            autocomplete="off" id="book_pick_date" placeholder="Date"
-                                            value="{{$pickUpDate}}"
-                                            {{-- data-provide="datepicker"  --}}
-											data-date-autoclose="true"
-                                            data-date-format="mm/dd/yyyy" data-date-today-highlight="true"
-                                            onchange="this.dispatchEvent(new InputEvent('input'))">
-                                    </div>
-                                
 
-                                    <div class="form-group ml-2">
-                                        <label for="" class="label">Drop-off date</label>
-                                        <input wire:model="dropoffDate" type="text" class="form-control datepicker"
-                                            id="book_off_date" placeholder="Date" 
-                                            value="{{$dropOffDate}}"
-                                            {{-- data-provide="datepicker"  --}}
 
-                                            data-date-autoclose="true" data-date-format="mm/dd/yyyy"
-                                            data-date-today-highlight="true"
-                                            onchange="this.dispatchEvent(new InputEvent('input'))">
-                                    </div>
-                             
+                        <div class="form-group ml-2">
+                            <label for="" class="label">Pick-up date</label>
+                            <input wire:model="pickupDate" type="text" class="form-control datepicker"
+                                autocomplete="off" id="book_pick_date" placeholder="Date" value="{{ $pickUpDate }}"
+                                {{-- data-provide="datepicker"  --}} data-date-autoclose="true" data-date-format="mm/dd/yyyy"
+                                data-date-today-highlight="true" onchange="this.dispatchEvent(new InputEvent('input'))">
+                        </div>
+                        <div class="form-group ml-2">
+                            <label for="" class="label">Pick-up time</label>
 
-                                
-                            
+                            <input wire:model="pickuptime" type="time" id="time_picker" class="form-control"
+                                value="10:05 AM" />
+                        </div>
+
+
+                        <div class="form-group ml-2">
+                            <label for="" class="label">Drop-off date</label>
+                            <input wire:model="dropoffDate" type="text" class="form-control datepicker"
+                                id="book_off_date" placeholder="Date" value="{{ $dropOffDate }}" {{-- data-provide="datepicker"  --}}
+                                data-date-autoclose="true" data-date-format="mm/dd/yyyy"
+                                data-date-today-highlight="true" onchange="this.dispatchEvent(new InputEvent('input'))">
+                        </div>
+                        <div class="form-group ml-2">
+                            <label for="" class="label">Drop-off time</label>
+
+                            <input wire:model="dropofftime" type="time" id="time_drop" class="form-control"
+                                value="10:05 AM" />
+                        </div>
+
+
+
                     </div>
                 </div>
                 <div class="sidebar-filter mt-50">
                     <div class="top-filter-head">Price Filters</div>
-                  
+
                     <div class="common-filter" wire:ignore>
-                        <div class="head"><h4>Price</h4></div>
+                        <div class="head">
+                            <h4>Price</h4>
+                        </div>
                         <div class="price-range-area">
                             <div id="price-range"></div>
                             <div class="value-wrapper d-flex">
@@ -176,7 +186,8 @@
                                         src="{{ asset('storage/' . $car->image_path[0]) }}" alt="">
                                     <div class="product-details">
 
-                                        <h6 class="mb-0"><a style="color:darkred" href="#">{{ $car->name }}</a></h6>
+                                        <h6 class="mb-0"><a style="color:darkred"
+                                                href="#">{{ $car->name }}</a></h6>
                                         <div class="d-flex mb-3"><span class="cat">{{ $car->type->name }}</span>
                                             <p class="price ml-auto">{{ $car->daily_rate }}<span>/day</span></p>
                                         </div>
@@ -202,7 +213,7 @@
                                                 <span class="lnr lnr-sync"></span>
                                                 <p class="hover-text">compare</p>
                                             </a> --}}
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -417,10 +428,10 @@
 <script>
     document.getElementById('typesToggle').addEventListener('click', function() {
 
-var typesList = document.getElementById('typesList');
+        var typesList = document.getElementById('typesList');
 
-if (typesList.style.display === 'none') {
-    typesList.style.display = 'block';
+        if (typesList.style.display === 'none') {
+            typesList.style.display = 'block';
         } else {
             typesList.style.display = 'none';
         }
