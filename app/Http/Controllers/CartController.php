@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $cartItems = Reservation::where('user_id',Auth::id())->get(); // Get all cart items
-        $cartCount = Reservation::where('user_id',Auth::id())->count(); 
+        $cartItems = Reservation::where('user_id', Auth::id())->get(); // Get all cart items
+        $cartCount = Reservation::where('user_id', Auth::id())->count();
 
         return view('frontend.cart.index', compact('cartItems', 'cartCount'));
     }

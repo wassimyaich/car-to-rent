@@ -40,18 +40,13 @@ Route::post('/login', [AuthController::class, 'login'])->name('postlogin');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('postregister');
 
-Route::group(['prefix'=>'user','middleware'=>'auth:web'],function(){
+Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
 
-    Route::post('/logout',[AuthController::class,'logout'])->name('user.logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/cart/{slug}', [CartController::class, 'index'])->name('cart.index');
 });
 
-Route::get('/car', [CarController::class,'index'])->name('car.index');
+Route::get('/car', [CarController::class, 'index'])->name('car.index');
 
 // function () {    return view('frontend.car');}    );
-
-
-
-    
-

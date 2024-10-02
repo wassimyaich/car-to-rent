@@ -34,92 +34,6 @@ class CarResource extends Resource
 
     public static function form(Form $form): Form
     {
-        // return $form
-        //     ->schema([
-        //         Forms\Components\TextInput::make('name')
-        //         ->required(),
-        //         Forms\Components\Select::make('brand_id')
-        //             ->relationship('brand', 'name')
-        //             ->required(),
-        //         // ->maxLength(255),
-        //         Forms\Components\Select::make('category_id')
-        //             ->relationship('category', 'name')
-
-        //             ->required(),
-        //         Forms\Components\Select::make('type_id')
-        //             ->relationship('type', 'name')
-        //             ->required(),
-        //         Forms\Components\Select::make('country_id')
-        //             ->relationship(name: 'country', titleAttribute: 'name')
-        //             ->searchable()
-        //             ->preload()
-        //             ->live()
-        //             ->afterStateUpdated(function (Set $set) {
-        //                 $set('state_id', null);
-        //                 $set('city_id', null);
-        //             })
-        //             ->required(),
-        //         Forms\Components\Select::make('state_id')
-        //             ->options(fn(Get $get): Collection => State::query()
-        //                 ->where('country_id', $get('country_id'))
-        //                 ->pluck('name', 'id'))
-        //             ->searchable()
-        //             ->preload()
-        //             ->live()
-        //             // ->afterStateUpdated(fn(Set $set) => $set('city_id', null))
-        //             ->required(),
-        //         // Forms\Components\Select::make('city_id')
-        //         //     ->options(fn(Get $get): Collection => City::query()
-        //         //         ->where('state_id', $get('state_id'))
-        //         //         ->pluck('name', 'id'))
-        //         //     ->searchable()
-        //         //     ->preload()
-        //         //     ,
-        //         Forms\Components\TextInput::make('year')
-        //             ->required()
-        //             ->numeric(),
-        //             Forms\Components\DateTimePicker::make('technical_inspection')
-        //             ->required()
-        //             ->default(now()) // Default to today's date
-        //             ->reactive() // To trigger validation dynamically when start date changes
-        //             ->extraAttributes(['readonly' => true]) ,// Prevent manual input
-
-        //         Forms\Components\TextInput::make('license_plate')
-        //             ->required()
-        //             ->unique(ignorable: fn($record) => $record),
-        //         Forms\Components\TextInput::make('daily_rate')
-        //             ->required()
-        //             ->numeric(),
-        //         Forms\Components\Textarea::make('description')
-        //             ->columnSpanFull(),
-        //         Forms\Components\Toggle::make('is_available')
-        //             ->required(),
-        //         Forms\Components\Toggle::make('show_on_website')
-        //             ->required(),
-        //             // Forms\Components\FileUpload::make('image_path')
-        //             // ->image()
-        //             // ->storeFileNamesIn('storage')
-        //             // ->required(),
-
-        //             Forms\Components\FileUpload::make('image_path')
-        //             ->columns(1)
-        //             ->label('Car Images')
-        //             ->multiple()
-        //             ->minFiles(1)
-        //             ->maxFiles(4)
-        //             ->enableReordering()
-        //             // ->sortable() // Allow reordering
-        //             ->image() // Ensure it's an image
-        //             ->directory('car-images') // Where to store the images
-        //             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
-        //                 return (string) str()->uuid() . "." . $file->extension();
-        //             })
-
-        //             ->required(),
-
-        //     ]);
-
-        //
         return $form
             ->schema([
                 // Basic Information Section
@@ -149,10 +63,10 @@ class CarResource extends Resource
                             ->label('Slug') // URL-friendly version of the car name
                             ->placeholder('Enter a slug'),
 
-                            Forms\Components\Textarea::make('keywords')
+                        Forms\Components\Textarea::make('keywords')
                             ->nullable()
-                                    ->label("Keywords")
-                            -> placeholder("Enter keywords for SEO, separated by commas..."),
+                            ->label("Keywords")
+                            ->placeholder("Enter keywords for SEO, separated by commas..."),
                     ])->columns(2),
 
                 // Location Details Section
@@ -222,34 +136,20 @@ class CarResource extends Resource
                 // Images & Features Section
                 Forms\Components\Section::make('Images & Features')
                     ->schema([
-                //         Forms\Components\FileUpload::make('image_path')
-                //             ->columns(1)
-                //             ->label('Car Images')
-                //             ->multiple()
-                //             ->minFiles(1)
-                //             ->maxFiles(4)
-                //             ->enableReordering() // Allow reordering of images
-                //             ->image() // Ensure it's an image
-                //             ->directory('car-images') // Where to store the images
-                //             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
-                //                 return (string) str()->uuid() . "." . $file->extension();
-                //             })
-                            
-                //             ->required(),
 
-                            Forms\Components\FileUpload::make('image_path')
+                        Forms\Components\FileUpload::make('image_path')
                             ->columns(2)
                             ->image()
                             ->storeFileNamesIn('storage')
                             ->multiple()
                             ->minFiles(1)
                             ->maxFiles(4)
-                            ->enableReordering() 
+                            ->enableReordering()
                             ->image()
                             ->directory('car-images')
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
-                                                return (string) str()->uuid() . "." . $file->extension();
-                                            })
+                                return (string) str()->uuid() . "." . $file->extension();
+                            })
                             ->required(),
 
                         // Features JSON Field (Newly Added)
@@ -273,13 +173,13 @@ class CarResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Name')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('category_id')
+                Tables\Columns\TextColumn::make('category.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('type_id')
+                Tables\Columns\TextColumn::make('type.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('brand_id')
+                Tables\Columns\TextColumn::make('brand.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('year')
@@ -304,7 +204,7 @@ class CarResource extends Resource
                     ->url(function (Car $record) {
                         Log::info('Image path: ' . print_r($record->image_path, true));
 
-                        
+
                         // $imagePaths = json_decode($record->image_path, true);
                         $imagePaths = $record->image_path;
 
@@ -316,7 +216,7 @@ class CarResource extends Resource
                     ->label('Image')
                     ->circular()
                     ->stacked()
-                  
+
                     ->size(64),
                 //         Tables\Columns\ImageColumn::make('image_path')
                 // ->url(function (Car $record) {
@@ -332,6 +232,10 @@ class CarResource extends Resource
                 // ->label('Image')
                 // ->circular(),
 
+                Tables\Columns\TextColumn::make('state.name')
+                    ->searchable()
+                    ->sortable()
+                    ->label('State'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -28,11 +28,12 @@ class Car extends Model
         'image_path',
         'features',
         'is_insured',
+        'show_on_website',
     ];
 
 
     protected $casts = [
-        'image_path'=> 'array',
+        'image_path' => 'array',
     ];
 
     public function reservations()

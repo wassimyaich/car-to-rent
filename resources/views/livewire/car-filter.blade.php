@@ -60,7 +60,7 @@
 
                         <div class="form-group ml-2">
                             <label for="" class="label">Pick-up date</label>
-                            <input wire:model="pickupDate" type="text" class="form-control datepicker"
+                            <input wire:model.live="pickUpDate" type="text" class="form-control datepicker"
                                 autocomplete="off" id="book_pick_date" placeholder="Date" value="{{ $pickUpDate }}"
                                 {{-- data-provide="datepicker"  --}} data-date-autoclose="true" data-date-format="mm/dd/yyyy"
                                 data-date-today-highlight="true" onchange="this.dispatchEvent(new InputEvent('input'))">
@@ -75,7 +75,7 @@
 
                         <div class="form-group ml-2">
                             <label for="" class="label">Drop-off date</label>
-                            <input wire:model="dropoffDate" type="text" class="form-control datepicker"
+                            <input wire:model.live="dropOffDate" type="text" class="form-control datepicker"
                                 id="book_off_date" placeholder="Date" value="{{ $dropOffDate }}" {{-- data-provide="datepicker"  --}}
                                 data-date-autoclose="true" data-date-format="mm/dd/yyyy"
                                 data-date-today-highlight="true" onchange="this.dispatchEvent(new InputEvent('input'))">
@@ -201,7 +201,8 @@
                                                 <span class="lnr lnr-move"></span>
                                                 <p class="hover-text">view more</p>
                                             </a>
-                                            <a href="" class="social-info">
+                                            <a href="javascript:void(0)" wire:click="RentCar({{ $car->id }})"
+                                                class="social-info">
                                                 <span class="ti-bag"></span>
                                                 <p class="hover-text">Rent This.</p>
                                             </a>
@@ -243,7 +244,7 @@
                         <a href="#">6</a>
                         <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right"
                                 aria-hidden="true"></i></a>
-                             
+
                         {{$cars->links()}}
                     </div> --}}
 
