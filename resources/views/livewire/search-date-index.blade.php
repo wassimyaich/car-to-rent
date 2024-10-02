@@ -1,80 +1,3 @@
-{{-- <div>
-    <section class="ftco-section ftco-no-pt bg-light">
-    	<div class="container">
-    		<div class="row no-gutters">
-    			<div class="col-md-12	featured-top">
-    				<div class="row no-gutters">
-	  					<div class="col-md-4 d-flex align-items-center">
-	  						<form action="#" class="request-form ftco-animate bg-primary">
-		          		<h2>Make your trip</h2>
-			    				<div class="form-group">
-			    					<label for="" class="label">Pick-up location</label>
-			    					<input wire:model.live="pickupLocation" type="text" class="form-control" placeholder="City, Airport, Station, etc">
-			    				</div>
-			    				<div class="form-group">
-			    					<label for="" class="label">Drop-off location</label>
-			    					<input wire:model.live="dropoffLocation" type="text" class="form-control" placeholder="City, Airport, Station, etc">
-			    				</div>
-			    				<div class="d-flex">
-			    					<div class="form-group mr-2">
-			                <label for="" class="label">Pick-up date</label>
-			                <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
-			              </div>
-			              <div class="form-group ml-2">
-			                <label for="" class="label">Drop-off date</label>
-			                <input type="text" class="form-control" id="book_off_date" placeholder="Date">
-			              </div>
-		              </div>
-		              <div class="form-group">
-		                <label for="" class="label">Pick-up time</label>
-		                <input type="text" class="form-control" id="time_pick" placeholder="Time">
-		              </div>
-			            <div class="form-group">
-			              <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
-			            </div>
-			    			</form>
-	  					</div>
-	  					<div class="col-md-8 d-flex align-items-center">
-	  						<div class="services-wrap rounded-right w-100">
-	  							<h3 class="heading-section mb-4">Better Way to Rent Your Perfect Cars</h3>
-	  							<div class="row d-flex mb-4">
-					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-					            <div class="services w-100 text-center">
-				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
-				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Choose Your Pickup Location</h3>
-				                </div>
-					            </div>      
-					          </div>
-					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-					            <div class="services w-100 text-center">
-				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
-				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Select the Best Deal</h3>
-					              </div>
-					            </div>      
-					          </div>
-					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-					            <div class="services w-100 text-center">
-				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
-				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Reserve Your Rental Car</h3>
-					              </div>
-					            </div>      
-					          </div>
-					        </div>
-					        <p><a href="#" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
-	  						</div>
-	  					</div>
-	  				</div>
-				</div>
-  		</div>
-    </section>
-</div>
- --}}
-
-
-
 <div>
     <section class="ftco-section ftco-no-pt bg-light">
         <div class="container">
@@ -141,10 +64,17 @@
                                             onchange="this.dispatchEvent(new InputEvent('input'))">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="d-flex">
+                                    <div class="form-group mr-2">
                                     <label for="" class="label">Pick-up time</label>
-                                    <input wire:model.live="pickupTime" type="text" class="form-control"
-                                        id="time_pick" placeholder="Time">
+                                   
+                                        <input wire:model="pickupTime" type="time" id="time_picker" class="form-control" value="10:05 AM" />
+                                    </div>
+                                    <div class="form-group ml-2">
+                                        <label for="" class="label">Drop-off time</label>
+                                        
+                                            <input wire:model="dropoffTime" type="time" id="time_drop" class="form-control" value="10:05 AM" />
+                                        </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
@@ -213,12 +143,21 @@
             }
         });
 
-        flatpickr("#time_pick", {
+        flatpickr("#time_picker", {
             enableTime: true,
             noCalendar: true,
             dateFormat: "H:i",
             onChange: function(selectedDates, dateStr) {
                 @this.set('pickupTime', dateStr); // Set pickupTime in Livewire
+            }
+        });
+
+        flatpickr("#time_drop", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            onChange: function(selectedDates, dateStr) {
+                @this.set('dropoffTime', dateStr); // Set dropoffTime in Livewire
             }
         });
     });

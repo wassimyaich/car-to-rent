@@ -6,11 +6,11 @@
                     <div class="head">Types Categories</div>
                     {{-- checkbox here  --}}
                   
-                    <div class="main-categories">
-                        <h4 class="mb-3" id="brandsToggle" style="cursor: pointer;">
-                            Brands
-                        </h4>
-                        <div id="brandsList">
+                    <div class="main-categories" style="margin-top: 20px;" >
+                        <h6 class="mb-3" id="brandsToggle" style="cursor: pointer;">
+                            Brands({{ \App\Models\Brand::count() }})
+                        </h6>
+                        <div id="brandsList" >
                             <ul>
                                 @foreach ($brands as $brand)
                                     <li class="mb-3" wire:key="{{ $brand->id }}">
@@ -26,60 +26,68 @@
                                     </li>
                                 @endforeach
                             </ul>
+
+                           
                         </div>
+
+                        <h6 class="mb-3" id="typesToggle" style="cursor: pointer;" >
+                            Types({{ \App\Models\Type::count() }})
+                        </h6>
+                        <div id="typesList">
+                            
+                            <ul>
+                                @foreach ($types as $type)
+                                    <li class="mb-3" wire:key="{{ $type->id }}">
+                                        <div class="form-check">
+                                            <input wire:model.live="selected_types" class="form-check-input" type="checkbox" value="{{ $type->id }}" id="type{{ $type->id }}">
+                                            <label class="form-check-label" for="brand{{ $type->id }}">
+                                                {{ $type->name }}
+                                                ({{ \App\Models\Car::whereHas('type', function ($query) use ($type) {
+                                                    $query->where('name', $type->name);
+                                                })->count() }})
+                                            </label>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                               
+                                    
+
+                                    <div class="form-group ml-2">
+                                        <label for="" class="label">Pick-up date</label>
+                                        <input wire:model="pickupDate" type="text" class="form-control datepicker"
+                                            autocomplete="off" id="book_pick_date" placeholder="Date"
+                                            value="{{$pickUpDate}}"
+                                            {{-- data-provide="datepicker"  --}}
+											data-date-autoclose="true"
+                                            data-date-format="mm/dd/yyyy" data-date-today-highlight="true"
+                                            onchange="this.dispatchEvent(new InputEvent('input'))">
+                                    </div>
+                                
+
+                                    <div class="form-group ml-2">
+                                        <label for="" class="label">Drop-off date</label>
+                                        <input wire:model="dropoffDate" type="text" class="form-control datepicker"
+                                            id="book_off_date" placeholder="Date" 
+                                            value="{{$dropOffDate}}"
+                                            {{-- data-provide="datepicker"  --}}
+
+                                            data-date-autoclose="true" data-date-format="mm/dd/yyyy"
+                                            data-date-today-highlight="true"
+                                            onchange="this.dispatchEvent(new InputEvent('input'))">
+                                    </div>
+                             
+
+                                
+                            
                     </div>
                 </div>
                 <div class="sidebar-filter mt-50">
                     <div class="top-filter-head">Price Filters</div>
-                    {{-- <div class="common-filter">
-                        <div class="head">                        <h4 class="mb-3">Brands({{ \App\Models\Brand::count() }})</h4>
-                            </div>
-                        
-
-                         <div class="main-categories">   
-                        <ul>
-                            @foreach ($brands as $brand)
-                                <li class="mb-4" wire:key="{{ $brand->id }}">
-                                    <input wire:model.live="selected_brands" class="form-check-input" type="checkbox"
-                                        value="{{ $brand->id }}" id="{{ $brand->id }}">
-                                    <label class="form-check-label" for="{{ $brand->id }}">
-                                        {{ $brand->name }}
-                                        ({{ \App\Models\Car::whereHas('brand', function ($query) use ($brand) {
-                                            $query->where('name', $brand->name);
-                                        })->count() }})
-                                    </label>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>   
-
-                    </div> --}}
-                    {{-- <div class="common-filter">
-                        <div class="head">Color</div>
-                        <form action="#">
-                            <ul>
-                                <li class="filter-list"><input class="pixel-radio" type="radio" id="black"
-                                        name="color"><label for="black">Black<span>(29)</span></label></li>
-                            </ul>
-                        </form>
-                    </div> --}}
-
-                    {{-- <div class="common-filter" wire:ignore>
-                        <div class="head">Price</div>
-                        <div class="price-range-area">
-                            <div id="price-range"></div>
-                            <div class="value-wrapper d-flex">
-                                <div class="price">Price:</div>
-                                <span>$</span>
-                                <div id="lower-value"></div>
-                                <div class="to">to</div>
-                                <span>$</span>
-                                <div id="upper-value"></div>
-                            </div>
-                        </div>
-                    </div> --}}
+                  
                     <div class="common-filter" wire:ignore>
-                        <div class="head">Price</div>
+                        <div class="head"><h4>Price</h4></div>
                         <div class="price-range-area">
                             <div id="price-range"></div>
                             <div class="value-wrapper d-flex">
@@ -168,13 +176,13 @@
                                         src="{{ asset('storage/' . $car->image_path[0]) }}" alt="">
                                     <div class="product-details">
 
-                                        <h6 class="mb-0"><a href="#">{{ $car->name }}</a></h6>
+                                        <h6 class="mb-0"><a style="color:darkred" href="#">{{ $car->name }}</a></h6>
                                         <div class="d-flex mb-3"><span class="cat">{{ $car->type->name }}</span>
                                             <p class="price ml-auto">{{ $car->daily_rate }}<span>/day</span></p>
-                                            <input type="hidden" name="state_name" value="{{ $car->state->name }}">
                                         </div>
                                         <div class="brand">
                                             <h6>{{ $car->brand->name }}</h6>
+                                            <input type="hidden" name="state_name" value="{{ $car->state->name }}">
 
                                         </div>
                                         <div class="prd-bottom">
@@ -398,10 +406,24 @@
 <script>
     document.getElementById('brandsToggle').addEventListener('click', function() {
         var brandsList = document.getElementById('brandsList');
+
         if (brandsList.style.display === 'none') {
             brandsList.style.display = 'block';
         } else {
             brandsList.style.display = 'none';
         }
+    });
+</script>
+<script>
+    document.getElementById('typesToggle').addEventListener('click', function() {
+
+var typesList = document.getElementById('typesList');
+
+if (typesList.style.display === 'none') {
+    typesList.style.display = 'block';
+        } else {
+            typesList.style.display = 'none';
+        }
+
     });
 </script>

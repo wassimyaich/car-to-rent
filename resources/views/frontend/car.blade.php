@@ -55,7 +55,12 @@
             </div>
         </div>
     </section>
-   @livewire('car-filter')
+   @livewire('car-filter', [
+    'pickUpDate' => $pickUpDate, 
+    'pickUpTime' => $pickUpTime, 
+    'dropOffDate' => $dropOffDate
+])
+
     @include('frontend.footer.footer')
 
 

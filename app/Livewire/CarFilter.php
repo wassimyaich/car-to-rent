@@ -28,6 +28,17 @@ class CarFilter extends Component
     public $minPrice = 1; // Default minimum price
     public $maxPrice = 1000; // Default maximum price
 
+    public $pickUpDate ;
+    public $dropOffDate ;
+    public $pickUpTime ;
+
+
+    public function mount ($pickUpDate = null, $dropOffDate = null, $pickUpTime = null)
+    {
+        $this->pickUpDate = $pickUpDate;
+        $this->dropOffDate = $dropOffDate;
+        $this->pickUpTime = $pickUpTime;
+    }
     public function updatedSelectedBrands()
     {
         // Reset pagination to page 1 when the selected brands change
