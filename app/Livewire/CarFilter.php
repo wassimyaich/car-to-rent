@@ -52,6 +52,16 @@ class CarFilter extends Component
 
     public function checkout()
     {
+        $data = $this->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'pickUpDate' => 'required|date',
+            'dropOffDate' => 'required|date',
+            'pickuplocation' => 'required|string',
+            'dropofflocation' => 'required|string',
+            'g-recaptcha-response' => 'required|captcha', // Add this for CAPTCHA validation
+        ]);
         // Handle checkout logic here
         // For example, save reservation and redirect to payment page
     }

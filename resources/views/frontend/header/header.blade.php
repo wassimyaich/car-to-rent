@@ -1,4 +1,7 @@
   {{-- //////////////////////// --}}
+  {{-- <script async src="https://www.google.com/recaptcha/api.js"></script> --}}
+
+
   <script src="frontend/searchcss/js/modernizr.js"></script>
   <link rel="stylesheet" type="text/css" href="{{ asset('frontend/searchcss/css/vendor.css') }}">
   <!-- Link Swiper's CSS -->
@@ -137,11 +140,16 @@
                                                           <input type="checkbox" required="" class="d-inline">
                                                           <span class="label-body text-black">Remember Me</span>
                                                       </label>
+                                                      <div class="g-recaptcha mt-4"
+                                                          data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+
                                                       <div class="d-grid my-3">
                                                           <button
                                                               class="btn btn-primary btn-lg btn-dark text-uppercase btn-rounded-none fs-6">Log
                                                               In</button>
                                                       </div>
+                                                      @include('frontend.include.success')
+                                                      @include('frontend.include.error')
                                                   </form>
                                               </div>
                                               <div class="tab-pane fade" id="nav-register" role="tabpanel"
@@ -179,11 +187,16 @@
                                                                   Policy</a>
                                                           </span>
                                                       </label>
+                                                      <div class="g-recaptcha mt-4"
+                                                          data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+
                                                       <div class="d-grid my-3">
                                                           <button
                                                               class="btn btn-primary btn-lg btn-dark text-uppercase btn-rounded-none fs-6">Sign
                                                               Up</button>
                                                       </div>
+                                                      @include('frontend.include.success')
+                                                      @include('frontend.include.error')
                                                   </form>
                                               </div>
                                           </div>
@@ -250,11 +263,16 @@
                                                       <input type="checkbox" required="" class="d-inline">
                                                       <span class="label-body text-black">Remember Me</span>
                                                   </label>
+                                                  <div class="g-recaptcha mt-4"
+                                                      data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+
                                                   <div class="d-grid my-3">
                                                       <button
                                                           class="btn btn-primary btn-lg btn-dark text-uppercase btn-rounded-none fs-6">Log
                                                           In</button>
                                                   </div>
+                                                  @include('frontend.include.success')
+                                                  @include('frontend.include.error')
                                               </form>
                                           </div>
                                           <div class="tab-pane fade active show" id="nav-register2" role="tabpanel"
@@ -290,11 +308,16 @@
                                                               Policy</a>
                                                       </span>
                                                   </label>
+                                                  <div class="g-recaptcha mt-4"
+                                                      data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+
                                                   <div class="d-grid my-3">
                                                       <button
                                                           class="btn btn-primary btn-lg btn-dark text-uppercase btn-rounded-none fs-6">Sign
                                                           Up</button>
                                                   </div>
+                                                  @include('frontend.include.success')
+                                                  @include('frontend.include.error')
                                               </form>
                                           </div>
                                       </div>
@@ -312,7 +335,7 @@
   <!-- script new ================================================== -->
   <script src="{{ asset('frontend/searchcss/js/jquery-1.11.0.min.js') }}"></script>
   <script src="{{ asset('frontend/searchcss/js/plugins.js') }}"></script>
-  {{-- <script src="{{asset('frontend/searchcss/js/script.js')}}"></script> --}}
+  <script src="{{ asset('frontend/searchcss/js/script.js') }}"></script>
   <script src="{{ asset('frontend/searchcss/js/modernizr.js') }}"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -378,3 +401,4 @@
   <!-- jQuery and Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
