@@ -35,6 +35,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('postlogin');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -48,5 +49,5 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
 });
 
 Route::get('/car', [CarController::class, 'index'])->name('car.index');
+// ->middleware('check.referrer');
 
-// function () {    return view('frontend.car');}    );

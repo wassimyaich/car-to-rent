@@ -127,6 +127,26 @@
                         </div>
                     </div>
 
+                    <div class="sorting">
+
+
+                        <div class="position-relative">
+                            <input wire:model.live="pickuplocation" type="text" class="form-control"
+                                value="{{ $pickuplocation }}" placeholder="City, Airport, Station, etc">
+                            @if (!empty($filteredStatesPickup))
+                                <ul class="list-group position-absolute w-100" style="z-index: 1000;">
+                                    @foreach ($filteredStatesPickup as $state)
+                                        <li class="list-group-item list-group-item-action"
+                                            wire:click="selectPickupState('{{ $state['name'] }}')">
+                                            {{ $state['name'] }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+
+                    </div>
+
                     <div wire:ignore class="sorting mr-auto">
                         <select class="form-control" onchange="@this.set('carsPerPage', this.value)">
                             <option value="9">Show 9</option>
@@ -201,11 +221,17 @@
                                                 <span class="lnr lnr-move"></span>
                                                 <p class="hover-text">view more</p>
                                             </a>
-                                            <a href="javascript:void(0)" wire:click="RentCar({{ $car->id }})"
+                                            {{-- <a href="javascript:void(0)" wire:click="RentCar({{ $car->id }})"
                                                 class="social-info">
                                                 <span class="ti-bag"></span>
                                                 <p class="hover-text">Rent This.</p>
+                                            </a> --}}
+                                            <a href="javascript:void(0)"
+                                                wire:click="openRentModal({{ $car->id }})" class="social-info">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Rent This</p>
                                             </a>
+
                                             {{-- <a href="" class="social-info">
                                                 <span class="lnr lnr-heart"></span>
                                                 <p class="hover-text">Wishlist</p>
@@ -216,11 +242,106 @@
                                             </a> --}}
 
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         @endforeach
+                        <!-- Modal Structure -->
 
+                        <div wire:ignore.self class="modal fade" id="rentCarModal" tabindex="-1" role="dialog"
+                            aria-labelledby="rentCarModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="rentCarModalLabel">Rent {{ $selectedCarName }}
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form wire:submit.prevent="checkout">
+                                            <div class="row">
+                                                <!-- Pick-up Date with Datepicker (Col 6) -->
+                                                <div class="form-group col-md-6">
+                                                    <label for="pickUpDate" class="label">Pick-up Date</label>
+                                                    <input wire:model="pickUpDate" type="text"
+                                                        class="form-control datepicker" id="book_pick_date"
+                                                        placeholder="Date" data-date-autoclose="true"
+                                                        data-date-format="mm/dd/yyyy" data-date-today-highlight="true"
+                                                        onchange="this.dispatchEvent(new InputEvent('input'))">
+                                                </div>
+
+                                                <!-- Drop-off Date with Datepicker (Col 6) -->
+                                                <div class="form-group col-md-6">
+                                                    <label for="dropOffDate" class="label">Drop-off Date</label>
+                                                    <input wire:model="dropOffDate" type="text"
+                                                        class="form-control datepicker" id="book_off_date"
+                                                        placeholder="Date" data-date-autoclose="true"
+                                                        data-date-format="mm/dd/yyyy" data-date-today-highlight="true"
+                                                        onchange="this.dispatchEvent(new InputEvent('input'))">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Pickup Location (Col 6) -->
+                                                <div class="form-group col-md-6">
+                                                    <label for="pickuplocation">Pick-up Location</label>
+                                                    <input type="text" id="pickuplocation"
+                                                        wire:model="pickuplocation" class="form-control" required>
+                                                </div>
+
+                                                <!-- Drop-off Location (Col 6) -->
+                                                <div class="form-group col-md-6">
+                                                    <label for="dropofflocation">Drop-off Location</label>
+                                                    <input type="text" id="dropofflocation"
+                                                        wire:model="dropofflocation" class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Name (Col 6) -->
+                                                <div class="form-group col-md-6">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" id="name" wire:model="name"
+                                                        class="form-control" required>
+                                                </div>
+
+                                                <!-- Phone (Col 6) -->
+                                                <div class="form-group col-md-6">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="text" id="phone" wire:model="phone"
+                                                        class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" id="email" wire:model="email"
+                                                    class="form-control" required>
+                                            </div>
+
+                                            <!-- Car Details -->
+                                            <div class="mb-3">
+                                                <p><strong>Car Name:</strong> {{ $selectedCarName }}</p>
+                                                <p><strong>Price:</strong> {{ $selectedCarPrice }} per day</p>
+                                            </div>
+
+                                            <!-- Checkout Button -->
+                                            <button type="submit" class="btn btn-primary btn-block">Proceed to
+                                                Checkout</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- End Modal Structure -->
                     </div>
                 </section>
 
@@ -437,5 +558,10 @@
             typesList.style.display = 'none';
         }
 
+    });
+</script>
+<script>
+    document.addEventListener('show-rent-car-modal', function() {
+        $('#rentCarModal').modal('show');
     });
 </script>

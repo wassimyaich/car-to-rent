@@ -25,37 +25,37 @@ class SearchDateIndex extends Component
         return view('livewire.search-date-index');
     }
 
-    public function updatedPickupLocation()
-    {
-        $this->filteredStatesPickup = $this->getFilteredStates($this->pickupLocation);
-    }
+    // public function updatedPickupLocation()
+    // {
+    //     $this->filteredStatesPickup = $this->getFilteredStates($this->pickupLocation);
+    // }
 
-    public function updatedDropoffLocation()
-    {
-        $this->filteredStatesDropoff = $this->getFilteredStates($this->dropoffLocation);
-    }
+    // public function updatedDropoffLocation()
+    // {
+    //     $this->filteredStatesDropoff = $this->getFilteredStates($this->dropoffLocation);
+    // }
 
-    private function getFilteredStates($query)
-    {
-        return State::where('name', 'like', '%' . $query . '%')
-            ->limit(5)
-            ->get()
-            ->map(function ($state) {
-                return ['id' => $state->id, 'name' => $state->name];
-            });
-    }
+    // private function getFilteredStates($query)
+    // {
+    //     return State::where('name', 'like', '%' . $query . '%')
+    //         ->limit(5)
+    //         ->get()
+    //         ->map(function ($state) {
+    //             return ['id' => $state->id, 'name' => $state->name];
+    //         });
+    // }
 
-    public function selectPickupState($stateName)
-    {
-        $this->pickupLocation = $stateName;
-        $this->filteredStatesPickup = [];
-    }
+    // public function selectPickupState($stateName)
+    // {
+    //     $this->pickupLocation = $stateName;
+    //     $this->filteredStatesPickup = [];
+    // }
 
-    public function selectDropoffState($stateName)
-    {
-        $this->dropoffLocation = $stateName;
-        $this->filteredStatesDropoff = [];
-    }
+    // public function selectDropoffState($stateName)
+    // {
+    //     $this->dropoffLocation = $stateName;
+    //     $this->filteredStatesDropoff = [];
+    // }
 
     public function rentCarNow()
     {

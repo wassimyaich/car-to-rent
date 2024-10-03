@@ -34,7 +34,48 @@ class CarFilter extends Component
     public $dropofftime;
     public $pickuplocation; // To store selected pickup state
     public $dropofflocation; // To store selected pickup state
+    public $filteredStatesPickup = [];
 
+
+    public $selectedCarName;
+    public $selectedCarPrice;
+
+    public function openRentModal($carId)
+    {
+        $car = Car::find($carId);
+        $this->selectedCarName = $car->name;
+        $this->selectedCarPrice = $car->daily_rate;
+
+        // Open the Bootstrap modal
+        $this->dispatch('show-rent-car-modal');
+    }
+
+    public function checkout()
+    {
+        // Handle checkout logic here
+        // For example, save reservation and redirect to payment page
+    }
+
+
+
+    public function updatedPickupLocation()
+    {
+        $this->filteredStatesPickup = $this->getFilteredStates($this->pickuplocation);
+    }
+     private function getFilteredStates($query)
+    {
+        return State::where('name', 'like', '%' . $query . '%')
+            ->limit(5)
+            ->get()
+            ->map(function ($state) {
+                return ['id' => $state->id, 'name' => $state->name];
+            });
+    }
+    public function selectPickupState($stateName)
+    {
+        $this->pickuplocation = $stateName;
+        $this->filteredStatesPickup = [];
+    }
 
     public function mount($pickUpDate = null, $dropOffDate = null, $pickuptime = null, $dropofftime = null, $pickuplocation = null, $dropofflocation = null)
     {
@@ -158,7 +199,7 @@ class CarFilter extends Component
         // }
 
 
-
+        $pickuplocation = $this->pickuplocation;
 
         // $states = State::all();
         $brands = Brand::all();
@@ -166,7 +207,7 @@ class CarFilter extends Component
         $categories = Category::all();
 
 
-        return view('livewire.car-filter', compact("cars", "brands", "types", "categories", "maxDailyRate"));
+        return view('livewire.car-filter', compact("cars", "brands", "types", "categories", "maxDailyRate","pickuplocation"));
     }
 
 
