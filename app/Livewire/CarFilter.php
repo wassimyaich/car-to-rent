@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use App\Models\Car;
 use App\Models\Type;
 use App\Models\Brand;
@@ -40,11 +41,31 @@ class CarFilter extends Component
     public $selectedCarName;
     public $selectedCarPrice;
 
+    public $name; // Add this line
+    public $phone; // Add this line
+    public $email; // Add this line
     public function openRentModal($carId)
     {
         $car = Car::find($carId);
         $this->selectedCarName = $car->name;
-        $this->selectedCarPrice = $car->daily_rate;
+        $pickUpDate = Carbon::parse($this->pickUpDate);
+        $dropOffDate = Carbon::parse($this->dropOffDate);
+        $numberOfDays = $pickUpDate->diffInDays($dropOffDate) + 1;
+
+        $basePrice = ($car->daily_rate)* $numberOfDays;
+        if ($numberOfDays > 14) {
+            // More than 2 weeks: 8% discount
+            $totalPrice = $basePrice * 0.92;
+        } elseif ($numberOfDays > 7) {
+            // More than 1 week: 5% discount
+            $totalPrice = $basePrice * 0.95;
+        } else {
+            // Less than or equal to 1 week: no discount
+            $totalPrice = $basePrice;
+        }
+
+        $this->selectedCarPrice = $totalPrice;
+
 
         // Open the Bootstrap modal
         $this->dispatch('show-rent-car-modal');
@@ -52,7 +73,7 @@ class CarFilter extends Component
 
     public function checkout()
     {
-        $data = $this->validate([
+        $this->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -60,10 +81,23 @@ class CarFilter extends Component
             'dropOffDate' => 'required|date',
             'pickuplocation' => 'required|string',
             'dropofflocation' => 'required|string',
-            'g-recaptcha-response' => 'required|captcha', // Add this for CAPTCHA validation
-        ]);
-        // Handle checkout logic here
-        // For example, save reservation and redirect to payment page
+            // 'g-recaptcha-response' => 'required|captcha', // Add this for CAPTCHA validation
+        ],[
+
+            'name.in'=> 'name is required',
+        ]
+
+
+
+    );
+
+
+
+    $totalPrice = $this->selectedCarPrice ;
+
+    // session()->flash('totalPrice', $totalPrice);
+    return redirect()->back()->with('success', "you rent passed with success");
+
     }
 
 

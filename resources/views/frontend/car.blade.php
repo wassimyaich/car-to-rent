@@ -60,11 +60,11 @@
     @livewire('car-filter', [
         'pickuplocation' => $pickUpLocation,
         'dropofflocation' => $dropOffLocation,
-    
+
         'pickUpDate' => $pickUpDate,
         'pickuptime' => $pickuptime,
         'dropofftime' => $dropofftime,
-    
+
         'dropOffDate' => $dropOffDate,
     ])
 
@@ -90,6 +90,7 @@
     <script src="{{ asset('frontend/carsearch/js/gmaps.min.js') }}"></script>
     <script src="{{ asset('frontend/carsearch/js/main.js') }}"></script>
     @livewireScripts
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </body>
 

@@ -328,15 +328,16 @@
                                                 <p><strong>Car Name:</strong> {{ $selectedCarName }}</p>
                                                 <p><strong>Price:</strong> {{ $selectedCarPrice }} per day</p>
                                             </div>
-                                            <div class="form-group">
-                                                {!! NoCaptcha::display() !!}
-                                                @error('g-recaptcha-response')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
+
+                                            <div class="g-recaptcha mt-4"
+                                                data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+
                                             <!-- Checkout Button -->
                                             <button type="submit" class="btn btn-primary btn-block">Proceed to
                                                 Checkout</button>
+                                            @include('frontend.include.error')
+                                            @include('frontend.include.success')
+
                                         </form>
                                     </div>
                                 </div>

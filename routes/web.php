@@ -16,7 +16,7 @@ Route::get('/pricing', function () {
     return view('frontend.pricing');
 });
 
-Route::get('/carSingle', function () {
+Route::get('/carSingle/{slug}', function () {
     return view('frontend.car-single');
 });
 Route::get('/contact', function () {
