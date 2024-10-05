@@ -2,48 +2,58 @@
 
 namespace App\Livewire;
 
-use Carbon\Carbon;
-use App\Models\Car;
-use App\Models\Type;
 use App\Models\Brand;
-use App\Models\State;
-use Livewire\Component;
+use App\Models\Car;
 use App\Models\Category;
-use Livewire\Attributes\Url;
-use Livewire\WithPagination;
-use Livewire\Attributes\Title;
+use App\Models\State;
+use App\Models\Type;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\Url;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class CarFilter extends Component
 {
-
     use WithPagination;
-
 
     #[Url]
     public $selected_brands = [];
+
     // public $search_state = '';
     public $search_car = '';
+
     public $carsPerPage = 9; // Default number of cars per page
+
     // New properties for price range
     public $minPrice = 1; // Default minimum price
+
     public $maxPrice = 1000; // Default maximum price
 
     public $pickUpDate;
+
     public $dropOffDate;
+
     public $pickuptime;
+
     public $dropofftime;
+
     public $pickuplocation; // To store selected pickup state
+
     public $dropofflocation; // To store selected pickup state
+
     public $filteredStatesPickup = [];
 
-
     public $selectedCarName;
+
     public $selectedCarPrice;
 
     public $name; // Add this line
+
     public $phone; // Add this line
+
     public $email; // Add this line
+
     public function openRentModal($carId)
     {
         $car = Car::find($carId);
@@ -52,7 +62,7 @@ class CarFilter extends Component
         $dropOffDate = Carbon::parse($this->dropOffDate);
         $numberOfDays = $pickUpDate->diffInDays($dropOffDate) + 1;
 
-        $basePrice = ($car->daily_rate)* $numberOfDays;
+        $basePrice = ($car->daily_rate) * $numberOfDays;
         if ($numberOfDays > 14) {
             // More than 2 weeks: 8% discount
             $totalPrice = $basePrice * 0.92;
@@ -65,7 +75,6 @@ class CarFilter extends Component
         }
 
         $this->selectedCarPrice = $totalPrice;
-
 
         // Open the Bootstrap modal
         $this->dispatch('show-rent-car-modal');
@@ -82,39 +91,49 @@ class CarFilter extends Component
             'pickuplocation' => 'required|string',
             'dropofflocation' => 'required|string',
             // 'g-recaptcha-response' => 'required|captcha', // Add this for CAPTCHA validation
-        ],[
+        ], [
 
-            'name.in'=> 'name is required',
+            'name.in' => 'name is required',
         ]
 
+        );
 
+        $totalPrice = $this->selectedCarPrice;
 
-    );
+        // session()->flash('totalPrice', $totalPrice);
+        // return redirect()->back()->with('success', 'you rent passed with success');
 
+        return redirect()->route('session')
+            ->with(['totalPrice' => $totalPrice,
+                'carname' => $this->selectedCarName,
+                'pickupDate' => $this->pickUpDate,
+                'dropoffDate' => $this->dropOffDate,
+                'pickuptime' => $this->pickuptime,
+                'dropofftime' => $this->dropofftime,
+                'pickupLocation' => $this->pickuplocation,
+                'dropoffLocation' => $this->dropofflocation,
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => $this->phone,
 
-
-    $totalPrice = $this->selectedCarPrice ;
-
-    // session()->flash('totalPrice', $totalPrice);
-    return redirect()->back()->with('success', "you rent passed with success");
-
+            ]);
     }
-
-
 
     public function updatedPickupLocation()
     {
         $this->filteredStatesPickup = $this->getFilteredStates($this->pickuplocation);
     }
-     private function getFilteredStates($query)
+
+    private function getFilteredStates($query)
     {
-        return State::where('name', 'like', '%' . $query . '%')
+        return State::where('name', 'like', '%'.$query.'%')
             ->limit(5)
             ->get()
             ->map(function ($state) {
                 return ['id' => $state->id, 'name' => $state->name];
             });
     }
+
     public function selectPickupState($stateName)
     {
         $this->pickuplocation = $stateName;
@@ -130,6 +149,7 @@ class CarFilter extends Component
         $this->pickuplocation = $pickuplocation;
         $this->dropofflocation = $dropofflocation;
     }
+
     public function updatedSelectedBrands()
     {
         // Reset pagination to page 1 when the selected brands change
@@ -154,8 +174,6 @@ class CarFilter extends Component
         $maxDailyRate = Car::when($this->selected_brands, function ($query) {
             return $query->whereIn('brand_id', $this->selected_brands);
         })->max('daily_rate'); // Get the maximum daily rate
-
-
 
         // end query
 
@@ -182,7 +200,7 @@ class CarFilter extends Component
                     return $query->whereIn('brand_id', $this->selected_brands);
                 })
                 ->when($this->search_car, function ($query) {
-                    return $query->where('name', 'like', '%' . $this->search_car . '%');
+                    return $query->where('name', 'like', '%'.$this->search_car.'%');
                 })
                 ->whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
                 ->paginate($this->carsPerPage);
@@ -224,14 +242,11 @@ class CarFilter extends Component
                     return $query->whereIn('brand_id', $this->selected_brands);
                 })
                 ->when($this->search_car, function ($query) {
-                    return $query->where('name', 'like', '%' . $this->search_car . '%');
+                    return $query->where('name', 'like', '%'.$this->search_car.'%');
                 })
                 ->whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
                 ->paginate($this->carsPerPage);
         }
-
-
-
 
         // if ($this->pickUpDate && $this->dropOffDate) {
         //     $q->whereBetween('start_date', [$this->pickUpDate, $this->dropOffDate])
@@ -242,7 +257,6 @@ class CarFilter extends Component
         //         });
         // }
 
-
         $pickuplocation = $this->pickuplocation;
 
         // $states = State::all();
@@ -250,27 +264,27 @@ class CarFilter extends Component
         $types = Type::all();
         $categories = Category::all();
 
-
-        return view('livewire.car-filter', compact("cars", "brands", "types", "categories", "maxDailyRate","pickuplocation"));
+        return view('livewire.car-filter', compact('cars', 'brands', 'types', 'categories', 'maxDailyRate', 'pickuplocation'));
     }
-
-
 
     public function updatePriceRange($minPrice, $maxPrice)
     {
         $this->minPrice = $minPrice;
         $this->maxPrice = $maxPrice;
     }
+
     public function getMaxDailyRateProperty()
     {
         return Car::when($this->selected_brands, function ($query) {
             return $query->whereIn('brand_id', $this->selected_brands);
         })->max('daily_rate');
     }
+
     public function RentCar($id)
     {
         $slug = Car::findorfail($id)->slug;
-        Log::info('car slug' . $slug);
-        return redirect()->route('cart.index',  $slug);
+        Log::info('car slug'.$slug);
+
+        return redirect()->route('cart.index', $slug);
     }
 }
