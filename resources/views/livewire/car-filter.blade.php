@@ -261,16 +261,19 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
+
+                                    <div class="modal-body" id="modalId">
                                         <form wire:submit.prevent="checkout">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <div class="row">
                                                 <!-- Pick-up Date with Datepicker (Col 6) -->
                                                 <div class="form-group col-md-6">
                                                     <label for="pickUpDate" class="label">Pick-up Date</label>
                                                     <input wire:model="pickUpDate" type="text"
-                                                        class="form-control datepicker" id="book_pick_date"
+                                                        class="form-control datepicker" {{-- id="book_pick_date" --}}
                                                         placeholder="Date" data-date-autoclose="true"
                                                         data-date-format="mm/dd/yyyy" data-date-today-highlight="true"
+                                                        readonly
                                                         onchange="this.dispatchEvent(new InputEvent('input'))">
                                                 </div>
 
@@ -278,9 +281,10 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="dropOffDate" class="label">Drop-off Date</label>
                                                     <input wire:model="dropOffDate" type="text"
-                                                        class="form-control datepicker" id="book_off_date"
+                                                        class="form-control datepicker" {{-- id="book_off_date" --}}
                                                         placeholder="Date" data-date-autoclose="true"
                                                         data-date-format="mm/dd/yyyy" data-date-today-highlight="true"
+                                                        readonly
                                                         onchange="this.dispatchEvent(new InputEvent('input'))">
                                                 </div>
                                             </div>
@@ -290,14 +294,16 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="pickuplocation">Pick-up Location</label>
                                                     <input type="text" id="pickuplocation"
-                                                        wire:model="pickuplocation" class="form-control" required>
+                                                        wire:model="pickuplocation" class="form-control" required
+                                                        readonly>
                                                 </div>
 
                                                 <!-- Drop-off Location (Col 6) -->
                                                 <div class="form-group col-md-6">
                                                     <label for="dropofflocation">Drop-off Location</label>
                                                     <input type="text" id="dropofflocation"
-                                                        wire:model="dropofflocation" class="form-control" required>
+                                                        wire:model="dropofflocation" class="form-control" required
+                                                        readonly>
                                                 </div>
                                             </div>
 
@@ -337,8 +343,8 @@
                                                 Checkout</button>
                                             @include('frontend.include.error')
                                             @include('frontend.include.success')
-
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -570,4 +576,23 @@
     document.addEventListener('show-rent-car-modal', function() {
         $('#rentCarModal').modal('show');
     });
+</script>
+<script>
+    let devToolsOpen = false;
+
+    const checkDevTools = () => {
+        const threshold = 160; // Adjust this value based on your needs
+        const widthThreshold = window.outerWidth - window.innerWidth > threshold ||
+            window.outerHeight - window.innerHeight > threshold;
+
+        if (widthThreshold) {
+            devToolsOpen = true;
+            document.getElementById('modalId').style.display = 'none'; // Hide your modal
+        } else {
+            devToolsOpen = false;
+            document.getElementById('modalId').style.display = 'block'; // Show your modal
+        }
+    };
+
+    setInterval(checkDevTools, 1000); // Check every second
 </script>

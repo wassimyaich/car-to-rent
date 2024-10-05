@@ -48,8 +48,8 @@ Route::middleware(['case-insensitive'])->group(function () {
     });
 
     Route::get('/car', [CarController::class, 'index'])->name('car.index');
-    Route::post('/session', [StripeController::class, 'session'])->name('session');
-    Route::get('/sucess', [StripeController::class, 'success'])->name('success');
+    // Route::post('/session', [StripeController::class, 'session'])->name('session');
+    Route::get('/success', [StripeController::class, 'success'])->name('success');
 
 });
 

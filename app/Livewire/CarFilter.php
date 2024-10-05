@@ -20,6 +20,9 @@ class CarFilter extends Component
     #[Url]
     public $selected_brands = [];
 
+    #[Url]
+    public $selected_types = [];
+
     // public $search_state = '';
     public $search_car = '';
 
@@ -30,8 +33,10 @@ class CarFilter extends Component
 
     public $maxPrice = 1000; // Default maximum price
 
+    #[Url]
     public $pickUpDate;
 
+    #[Url]
     public $dropOffDate;
 
     public $pickuptime;
@@ -82,41 +87,112 @@ class CarFilter extends Component
 
     public function checkout()
     {
+        // Validate input data
         $this->validate([
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'phone' => 'required|string',
-            'pickUpDate' => 'required|date',
-            'dropOffDate' => 'required|date',
-            'pickuplocation' => 'required|string',
-            'dropofflocation' => 'required|string',
-            // 'g-recaptcha-response' => 'required|captcha', // Add this for CAPTCHA validation
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:15', // Adjust max length as necessary
+            'pickUpDate' => 'required|date|after_or_equal:today', // Ensure pickup date is today or later
+            'dropOffDate' => 'required|date|after:pickUpDate', // Ensure drop-off date is after pickup date
+            'pickuplocation' => 'required|string|max:255',
+            'dropofflocation' => 'required|string|max:255',
         ], [
+            // Custom error messages
+            'name.required' => 'Name is required.',
+            'name.string' => 'Name must be a string.',
+            'name.max' => 'Name may not be greater than 255 characters.',
 
-            'name.in' => 'name is required',
-        ]
+            'email.required' => 'Email is required.',
+            'email.email' => 'Email must be a valid email address.',
+            'email.max' => 'Email may not be greater than 255 characters.',
 
-        );
+            'phone.required' => 'Phone number is required.',
+            'phone.string' => 'Phone number must be a string.',
+            'phone.max' => 'Phone number may not be greater than 15 characters.',
 
-        $totalPrice = $this->selectedCarPrice;
+            'pickUpDate.required' => 'Pickup date is required.',
+            'pickUpDate.date' => 'Pickup date must be a valid date.',
+            'pickUpDate.after_or_equal' => 'Pickup date must be today or later.',
 
-        // session()->flash('totalPrice', $totalPrice);
-        // return redirect()->back()->with('success', 'you rent passed with success');
+            'dropOffDate.required' => 'Drop-off date is required.',
+            'dropOffDate.date' => 'Drop-off date must be a valid date.',
+            'dropOffDate.after' => 'Drop-off date must be after the pickup date.',
 
-        return redirect()->route('session')
-            ->with(['totalPrice' => $totalPrice,
-                'carname' => $this->selectedCarName,
-                'pickupDate' => $this->pickUpDate,
-                'dropoffDate' => $this->dropOffDate,
-                'pickuptime' => $this->pickuptime,
-                'dropofftime' => $this->dropofftime,
-                'pickupLocation' => $this->pickuplocation,
-                'dropoffLocation' => $this->dropofflocation,
-                'name' => $this->name,
-                'email' => $this->email,
-                'phone' => $this->phone,
+            'pickuplocation.required' => 'Pickup location is required.',
+            'pickuplocation.string' => 'Pickup location must be a string.',
+            'pickuplocation.max' => 'Pickup location may not be greater than 255 characters.',
 
-            ]);
+            'dropofflocation.required' => 'Drop-off location is required.',
+            'dropofflocation.string' => 'Drop-off location must be a string.',
+            'dropofflocation.max' => 'Drop-off location may not be greater than 255 characters.',
+        ]);
+
+        // Calculate total price in cents
+        $totalPrice = (int) $this->selectedCarPrice * 100;
+
+        // Store data in session
+        session([
+            'totalPrice' => $totalPrice,
+            'carname' => $this->selectedCarName,
+            'pickupDate' => $this->pickUpDate,
+            'dropoffDate' => $this->dropOffDate,
+            'pickupLocation' => $this->pickuplocation,
+            'dropoffLocation' => $this->dropofflocation,
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+        ]);
+        Log::info('session request', session()->all());
+        // Set Stripe API key
+        \Stripe\Stripe::setApiKey(config('stripe.sk'));
+
+        // Retrieve values from session
+        $carname = session('carname');
+        $totalprice = session('totalPrice');
+
+        // Check for valid payment details
+        if (! $carname || ! $totalprice) {
+            return redirect()->route('home')->with(['error' => 'Invalid payment details']);
+        }
+
+        // Create a Stripe Checkout session with metadata
+        $session = \Stripe\Checkout\Session::create([
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'USD',
+                        'product_data' => [
+                            // Product name and description including rental details
+                            'name' => $carname,
+                            // Optional: Add description for clarity
+                            // Uncomment if needed:
+                            //  'description' => "Rental Details: Pickup at {$this->pickuplocation} on {$this->pickUpDate}, Drop-off at {$this->dropofflocation} on {$this->dropOffDate}",
+                        ],
+                        // Amount in cents
+                        'unit_amount' => $totalprice,
+                    ],
+                    // Quantity of the product
+                    'quantity' => 1,
+                ],
+            ],
+            // Payment mode
+            'mode' => 'payment',
+            // URLs for success and cancellation
+            'success_url' => route('success'),
+            'cancel_url' => route('home'),
+
+            // Adding metadata for tracking rental details
+            // This can be useful for later reference or webhook handling
+            'metadata' => [
+                'pickup_location' => $this->pickuplocation,
+                'pickup_date' => $this->pickUpDate,
+                'dropoff_date' => $this->dropOffDate,
+                'dropoff_location' => $this->dropofflocation,
+            ],
+        ]);
+
+        // Redirect to the Stripe Checkout page
+        return redirect()->away($session->url);
     }
 
     public function updatedPickupLocation()
@@ -156,6 +232,11 @@ class CarFilter extends Component
         $this->resetPage();
     }
 
+    public function updatedSelectedTypes()
+    {
+        $this->resetPage();
+    }
+
     public function updatedCarsPerPage()
     {
         Log::info('pagination', ['carsPerPage' => $this->carsPerPage]); // Corrected log statement
@@ -164,6 +245,21 @@ class CarFilter extends Component
 
     public function updatedSearchCar()
     {
+        Log::info('pickupdate', ['pickupdate' => $this->pickUpDate]);
+        Log::info('dropOffDate', ['dropOffDate' => $this->dropOffDate]);
+        $this->resetPage();
+    }
+
+    public function updatedPickUpDate()
+    {
+        Log::info('pickupdate', ['pickupdate' => $this->pickUpDate]);
+        Log::info('dropOffDate', ['dropOffDate' => $this->dropOffDate]);
+        $this->resetPage();
+    }
+
+    public function updatedDropOffDate()
+    {
+
         $this->resetPage();
     }
 
@@ -199,20 +295,16 @@ class CarFilter extends Component
                 ->when($this->selected_brands, function ($query) {
                     return $query->whereIn('brand_id', $this->selected_brands);
                 })
+                ->when($this->selected_types, function ($query) {
+                    return $query->whereIn('type_id', $this->selected_types);
+                })
                 ->when($this->search_car, function ($query) {
                     return $query->where('name', 'like', '%'.$this->search_car.'%');
                 })
                 ->whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
                 ->paginate($this->carsPerPage);
         } else {
-            // $cars = Car::whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
-            //     ->when($this->selected_brands, function ($query) {
-            //         return $query->whereIn('brand_id', $this->selected_brands);
-            //     })
-            //     ->when($this->search_car, function ($query) {
-            //         return $query->where('name', 'like', '%' . $this->search_car . '%');
-            //     })
-            //     ->paginate($this->carsPerPage);
+
             $cars = Car::where('is_available', true)
                 ->when($this->pickuplocation, function ($query) {
                     $query->whereHas('state', function ($query) {
@@ -241,21 +333,15 @@ class CarFilter extends Component
                 ->when($this->selected_brands, function ($query) {
                     return $query->whereIn('brand_id', $this->selected_brands);
                 })
+                ->when($this->selected_types, function ($query) {
+                    return $query->whereIn('type_id', $this->selected_types);
+                })
                 ->when($this->search_car, function ($query) {
                     return $query->where('name', 'like', '%'.$this->search_car.'%');
                 })
                 ->whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
                 ->paginate($this->carsPerPage);
         }
-
-        // if ($this->pickUpDate && $this->dropOffDate) {
-        //     $q->whereBetween('start_date', [$this->pickUpDate, $this->dropOffDate])
-        //         ->orWhereBetween('end_date', [$this->pickUpDate, $this->dropOffDate])
-        //         ->orWhere(function ($q2) {
-        //             $q2->where('start_date', '<=', $this->pickUpDate)
-        //                 ->where('end_date', '>=', $this->dropOffDate);
-        //         });
-        // }
 
         $pickuplocation = $this->pickuplocation;
 

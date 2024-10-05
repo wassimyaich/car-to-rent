@@ -6,7 +6,7 @@
             <label for="carFilter">Filter by Car:</label>
             <select id="carFilter">
                 <option value="">All Cars</option>
-                @foreach($cars as $car)
+                @foreach ($cars as $car)
                 <option value="{{ $car->id }}">{{ $car->license_plate }}</option>
             @endforeach
             </select>
@@ -54,8 +54,8 @@
             <label for="carFilter">Filter by Car:</label>
             <select id="carFilter">
                 <option value="">All Cars</option>
-                @foreach($cars as $car)
-                    <option value="{{ $car->id }}">{{ $car->license_plate }}</option>
+                @foreach ($cars as $car)
+                    <option value="{{ $car->id }}">{{ $car->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -85,9 +85,11 @@
                 // Event click handler
                 eventClick: function(info) {
                     console.log('Event clicked:', info.event); // Log the entire event object
-                    console.log('Event ID:', info.event.extendedProps.car.id); // Log the ID of the clicked event
+                    console.log('Event ID:', info.event.extendedProps.car
+                    .id); // Log the ID of the clicked event
                     // Redirect to the edit page for this event
-                    window.location.href = `/admin/reservations/${info.event.extendedProps.car.id}/edit`; // Adjust the URL according to your routing
+                    window.location.href =
+                    `/admin/reservations/${info.event.extendedProps.car.id}/edit`; // Adjust the URL according to your routing
                 },
             });
 
