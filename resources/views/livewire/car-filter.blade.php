@@ -577,7 +577,7 @@
         $('#rentCarModal').modal('show');
     });
 </script>
-<script>
+{{-- <script>
     let devToolsOpen = false;
 
     const checkDevTools = () => {
@@ -595,4 +595,4 @@
     };
 
     setInterval(checkDevTools, 1000); // Check every second
-</script>
+</script> --}}

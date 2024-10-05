@@ -250,19 +250,6 @@ class CarFilter extends Component
         $this->resetPage();
     }
 
-    public function updatedPickUpDate()
-    {
-        Log::info('pickupdate', ['pickupdate' => $this->pickUpDate]);
-        Log::info('dropOffDate', ['dropOffDate' => $this->dropOffDate]);
-        $this->resetPage();
-    }
-
-    public function updatedDropOffDate()
-    {
-
-        $this->resetPage();
-    }
-
     public function render()
     {
 
