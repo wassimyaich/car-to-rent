@@ -87,112 +87,118 @@ class CarFilter extends Component
 
     public function checkout()
     {
-        // Validate input data
-        $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:15', // Adjust max length as necessary
-            'pickUpDate' => 'required|date|after_or_equal:today', // Ensure pickup date is today or later
-            'dropOffDate' => 'required|date|after:pickUpDate', // Ensure drop-off date is after pickup date
-            'pickuplocation' => 'required|string|max:255',
-            'dropofflocation' => 'required|string|max:255',
-        ], [
-            // Custom error messages
-            'name.required' => 'Name is required.',
-            'name.string' => 'Name must be a string.',
-            'name.max' => 'Name may not be greater than 255 characters.',
+        try {
+            $this->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'phone' => 'required|string|max:15', // Adjust max length as necessary
+                'pickUpDate' => 'required|date|after_or_equal:today', // Ensure pickup date is today or later
+                'dropOffDate' => 'required|date|after:pickUpDate', // Ensure drop-off date is after pickup date
+                'pickuplocation' => 'required|string|max:255',
+                'dropofflocation' => 'required|string|max:255',
+            ], [
+                // Custom error messages
+                'name.required' => 'Name is required.',
+                'name.string' => 'Name must be a string.',
+                'name.max' => 'Name may not be greater than 255 characters.',
 
-            'email.required' => 'Email is required.',
-            'email.email' => 'Email must be a valid email address.',
-            'email.max' => 'Email may not be greater than 255 characters.',
+                'email.required' => 'Email is required.',
+                'email.email' => 'Email must be a valid email address.',
+                'email.max' => 'Email may not be greater than 255 characters.',
 
-            'phone.required' => 'Phone number is required.',
-            'phone.string' => 'Phone number must be a string.',
-            'phone.max' => 'Phone number may not be greater than 15 characters.',
+                'phone.required' => 'Phone number is required.',
+                'phone.string' => 'Phone number must be a string.',
+                'phone.max' => 'Phone number may not be greater than 15 characters.',
 
-            'pickUpDate.required' => 'Pickup date is required.',
-            'pickUpDate.date' => 'Pickup date must be a valid date.',
-            'pickUpDate.after_or_equal' => 'Pickup date must be today or later.',
+                'pickUpDate.required' => 'Pickup date is required.',
+                'pickUpDate.date' => 'Pickup date must be a valid date.',
+                'pickUpDate.after_or_equal' => 'Pickup date must be today or later.',
 
-            'dropOffDate.required' => 'Drop-off date is required.',
-            'dropOffDate.date' => 'Drop-off date must be a valid date.',
-            'dropOffDate.after' => 'Drop-off date must be after the pickup date.',
+                'dropOffDate.required' => 'Drop-off date is required.',
+                'dropOffDate.date' => 'Drop-off date must be a valid date.',
+                'dropOffDate.after' => 'Drop-off date must be after the pickup date.',
 
-            'pickuplocation.required' => 'Pickup location is required.',
-            'pickuplocation.string' => 'Pickup location must be a string.',
-            'pickuplocation.max' => 'Pickup location may not be greater than 255 characters.',
+                'pickuplocation.required' => 'Pickup location is required.',
+                'pickuplocation.string' => 'Pickup location must be a string.',
+                'pickuplocation.max' => 'Pickup location may not be greater than 255 characters.',
 
-            'dropofflocation.required' => 'Drop-off location is required.',
-            'dropofflocation.string' => 'Drop-off location must be a string.',
-            'dropofflocation.max' => 'Drop-off location may not be greater than 255 characters.',
-        ]);
+                'dropofflocation.required' => 'Drop-off location is required.',
+                'dropofflocation.string' => 'Drop-off location must be a string.',
+                'dropofflocation.max' => 'Drop-off location may not be greater than 255 characters.',
+            ]);
 
-        // Calculate total price in cents
-        $totalPrice = (int) $this->selectedCarPrice * 100;
+            // Calculate total price in cents
+            $totalPrice = (int) $this->selectedCarPrice * 100;
 
-        // Store data in session
-        session([
-            'totalPrice' => $totalPrice,
-            'carname' => $this->selectedCarName,
-            'pickupDate' => $this->pickUpDate,
-            'dropoffDate' => $this->dropOffDate,
-            'pickupLocation' => $this->pickuplocation,
-            'dropoffLocation' => $this->dropofflocation,
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-        ]);
-        Log::info('session request', session()->all());
-        // Set Stripe API key
-        \Stripe\Stripe::setApiKey(config('stripe.sk'));
+            // Store data in session
+            session([
+                'totalPrice' => $totalPrice,
+                'carname' => $this->selectedCarName,
+                'pickupDate' => $this->pickUpDate,
+                'dropoffDate' => $this->dropOffDate,
+                'pickupLocation' => $this->pickuplocation,
+                'dropoffLocation' => $this->dropofflocation,
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => $this->phone,
+            ]);
+            Log::info('session request', session()->all());
+            // Set Stripe API key
+            \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
-        // Retrieve values from session
-        $carname = session('carname');
-        $totalprice = session('totalPrice');
+            // Retrieve values from session
+            $carname = session('carname');
+            $totalprice = session('totalPrice');
 
-        // Check for valid payment details
-        if (! $carname || ! $totalprice) {
-            return redirect()->route('home')->with(['error' => 'Invalid payment details']);
-        }
+            // Check for valid payment details
+            if (! $carname || ! $totalprice) {
+                return redirect()->route('home')->with(['error' => 'Invalid payment details']);
+            }
 
-        // Create a Stripe Checkout session with metadata
-        $session = \Stripe\Checkout\Session::create([
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'USD',
-                        'product_data' => [
-                            // Product name and description including rental details
-                            'name' => $carname,
-                            // Optional: Add description for clarity
-                            // Uncomment if needed:
-                            //  'description' => "Rental Details: Pickup at {$this->pickuplocation} on {$this->pickUpDate}, Drop-off at {$this->dropofflocation} on {$this->dropOffDate}",
+            // Create a Stripe Checkout session with metadata
+            $session = \Stripe\Checkout\Session::create([
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'USD',
+                            'product_data' => [
+                                // Product name and description including rental details
+                                'name' => $carname,
+                                // Optional: Add description for clarity
+                                // Uncomment if needed:
+                                //  'description' => "Rental Details: Pickup at {$this->pickuplocation} on {$this->pickUpDate}, Drop-off at {$this->dropofflocation} on {$this->dropOffDate}",
+                            ],
+                            // Amount in cents
+                            'unit_amount' => $totalprice,
                         ],
-                        // Amount in cents
-                        'unit_amount' => $totalprice,
+                        // Quantity of the product
+                        'quantity' => 1,
                     ],
-                    // Quantity of the product
-                    'quantity' => 1,
                 ],
-            ],
-            // Payment mode
-            'mode' => 'payment',
-            // URLs for success and cancellation
-            'success_url' => route('success'),
-            'cancel_url' => route('home'),
+                // Payment mode
+                'mode' => 'payment',
+                // URLs for success and cancellation
+                'success_url' => route('success'),
+                'cancel_url' => route('home'),
 
-            // Adding metadata for tracking rental details
-            // This can be useful for later reference or webhook handling
-            'metadata' => [
-                'pickup_location' => $this->pickuplocation,
-                'pickup_date' => $this->pickUpDate,
-                'dropoff_date' => $this->dropOffDate,
-                'dropoff_location' => $this->dropofflocation,
-            ],
-        ]);
+                // Adding metadata for tracking rental details
+                // This can be useful for later reference or webhook handling
+                'metadata' => [
+                    'pickup_location' => $this->pickuplocation,
+                    'pickup_date' => $this->pickUpDate,
+                    'dropoff_date' => $this->dropOffDate,
+                    'dropoff_location' => $this->dropofflocation,
+                ],
+            ]);
 
-        // Redirect to the Stripe Checkout page
-        return redirect()->away($session->url);
+            // Redirect to the Stripe Checkout page
+            return redirect()->away($session->url);
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => 'a problem exist : '.$e->getMessage()])->withInput();
+        }
+        // Validate input data
+
     }
 
     public function updatedPickupLocation()
@@ -252,71 +258,51 @@ class CarFilter extends Component
 
     public function render()
     {
+        try {
+            $maxDailyRate = Car::when($this->selected_brands, function ($query) {
+                return $query->whereIn('brand_id', $this->selected_brands);
+            })->max('daily_rate'); // Get the maximum daily rate
 
-        // $maxDailyRate = Car::max('daily_rate'); // Get the maximum daily rate
-        $maxDailyRate = Car::when($this->selected_brands, function ($query) {
-            return $query->whereIn('brand_id', $this->selected_brands);
-        })->max('daily_rate'); // Get the maximum daily rate
-
-        // end query
-
-        if ($this->pickUpDate && $this->dropOffDate && $this->pickuplocation) {
-            $cars = Car::where('is_available', true)
-                ->when($this->pickuplocation, function ($query) {
-                    $query->whereHas('state', function ($query) {
-                        $query->where('name', $this->pickuplocation); // Match the state name
-                    });
-                })
-                ->whereDoesntHave('reservations', function ($query) {
-                    $query->where('status', 'reserved')
-                        ->orWhere('status', 'active')
-                        ->where(function ($q) {
-                            $q->whereBetween('start_date', [$this->pickUpDate, $this->dropOffDate])
-                                ->orWhereBetween('end_date', [$this->pickUpDate, $this->dropOffDate])
-                                ->orWhere(function ($q2) {
-                                    $q2->where('start_date', '<=', $this->pickUpDate)
-                                        ->where('end_date', '>=', $this->dropOffDate);
-                                });
-                        });
-                })
-                ->when($this->selected_brands, function ($query) {
-                    return $query->whereIn('brand_id', $this->selected_brands);
-                })
-                ->when($this->selected_types, function ($query) {
-                    return $query->whereIn('type_id', $this->selected_types);
-                })
-                ->when($this->search_car, function ($query) {
-                    return $query->where('name', 'like', '%'.$this->search_car.'%');
-                })
-                ->whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
-                ->paginate($this->carsPerPage);
-        } else {
+            Log::info('pickupdate', ['pickupdate' => $this->pickUpDate]);
+            Log::info('dropOffDate', ['dropOffDate' => $this->dropOffDate]);
+            if (! is_null($this->pickUpDate) && ! is_null($this->dropOffDate)) {
+                $formattedPickUpDate = Carbon::createFromFormat('m/d/Y', $this->pickUpDate)->format('Y-m-d');
+                $formattedDropOffDate = Carbon::createFromFormat('m/d/Y', $this->dropOffDate)->format('Y-m-d');
+                Log::info('pickupdate', ['pickupdate' => $formattedPickUpDate]);
+                Log::info('dropOffDate', ['dropOffDate' => $formattedDropOffDate]);
+            } else {
+                // Handle the case where one or both dates are null
+                $formattedPickUpDate = null; // or some default value
+                $formattedDropOffDate = null; // or some default value
+            }
 
             $cars = Car::where('is_available', true)
                 ->when($this->pickuplocation, function ($query) {
                     $query->whereHas('state', function ($query) {
-                        $query->where('name', $this->pickuplocation); // Match the state name
+                        $query->where('name', $this->pickuplocation)
+                            ->orWhere('name', 'like', '%'.$this->pickuplocation.'%'); // Partial match using LIKE
                     });
                 })
-                ->whereDoesntHave('reservations', function ($query) {
-                    // Apply the date conditions first, but only if both pickUpDate and dropOffDate are not null
-                    if ($this->pickUpDate && $this->dropOffDate) {
+        // If both pickUpDate and dropOffDate are selected, hide cars with reservations in that date range
+                ->when($this->pickUpDate && $this->dropOffDate, function ($query) use ($formattedPickUpDate, $formattedDropOffDate) {
+                    $query->whereDoesntHave('reservations', function ($query) use ($formattedPickUpDate, $formattedDropOffDate) {
                         $query->where(function ($q) {
-                            $q->whereBetween('start_date', [$this->pickUpDate, $this->dropOffDate])
-                                ->orWhereBetween('end_date', [$this->pickUpDate, $this->dropOffDate])
-                                ->orWhere(function ($q2) {
-                                    $q2->where('start_date', '<=', $this->pickUpDate)
-                                        ->where('end_date', '>=', $this->dropOffDate);
-                                });
-                        });
-                    }
-
-                    // Then apply the reservation status check
-                    $query->where(function ($q) {
-                        $q->where('status', 'reserved')
-                            ->orWhere('status', 'active');
+                            // Only consider cars with reservation status 'reserved' or 'active'
+                            $q->where('status', 'reserved')
+                                ->orWhere('status', 'active');
+                        })
+                        // Filter out cars with reservations that overlap the selected dates
+                            ->where(function ($q) use ($formattedPickUpDate, $formattedDropOffDate) {
+                                $q->whereBetween('start_date', [$formattedPickUpDate, $formattedDropOffDate])
+                                    ->orWhereBetween('end_date', [$formattedPickUpDate, $formattedDropOffDate])
+                                    ->orWhere(function ($q2) use ($formattedPickUpDate, $formattedDropOffDate) {
+                                        $q2->where('start_date', '<=', $formattedPickUpDate)
+                                            ->where('end_date', '>=', $formattedDropOffDate);
+                                    });
+                            });
                     });
                 })
+        // Apply other filters (brands, types, search, and price)
                 ->when($this->selected_brands, function ($query) {
                     return $query->whereIn('brand_id', $this->selected_brands);
                 })
@@ -328,16 +314,24 @@ class CarFilter extends Component
                 })
                 ->whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
                 ->paginate($this->carsPerPage);
+            $pickuplocation = $this->pickuplocation;
+
+            // if (! is_null($this->filteredStatesPickup)) {
+            //     $filteredStatesPickup = State::all();
+            // }
+            // Log::info('filteredStatesPickup', ['filteredStatesPickup' => $filteredStatesPickup]);
+            // $filteredStatesPickup = $this->filteredStatesPickup;
+            // $states = State::all();
+            $brands = Brand::all();
+            $types = Type::all();
+            $categories = Category::all();
+
+            return view('livewire.car-filter', compact('cars', 'brands', 'types', 'categories', 'maxDailyRate', 'pickuplocation'));
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => 'a problem exist : '.$e->getMessage()])->withInput();
         }
-
-        $pickuplocation = $this->pickuplocation;
-
-        // $states = State::all();
-        $brands = Brand::all();
-        $types = Type::all();
-        $categories = Category::all();
-
-        return view('livewire.car-filter', compact('cars', 'brands', 'types', 'categories', 'maxDailyRate', 'pickuplocation'));
+        // $maxDailyRate = Car::max('daily_rate'); // Get the maximum daily rate
     }
 
     public function updatePriceRange($minPrice, $maxPrice)

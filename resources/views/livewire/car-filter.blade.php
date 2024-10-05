@@ -127,7 +127,7 @@
                         </div>
                     </div>
 
-                    <div class="sorting">
+                    {{-- <div class="sorting">
 
 
                         <div class="position-relative">
@@ -145,7 +145,27 @@
                             @endif
                         </div>
 
+                    </div> --}}
+
+                    <div class="sorting">
+                        <div class="select-container">
+                            <input wire:model.live="pickuplocation" type="text" class="form-control"
+                                placeholder="Search..." id="searchInput" />
+                            @if (count($filteredStatesPickup) > 0)
+                                <div class="select-dropdown" id="dropdown" style="display: block;">
+                                    @foreach ($filteredStatesPickup as $state)
+                                        <div class="select-item"
+                                            wire:click="selectPickupState('{{ $state['name'] }}')"
+                                            data-value="{{ $state['name'] }}">
+                                            {{ $state['name'] }}
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
                     </div>
+
+
 
                     <div wire:ignore class="sorting mr-auto">
                         <select class="form-control" onchange="@this.set('carsPerPage', this.value)">
@@ -254,7 +274,8 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="rentCarModalLabel">Rent {{ $selectedCarName }}
+                                        <h5 class="modal-title" id="rentCarModalLabel">Rent
+                                            {{ $selectedCarName }}
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal"
                                             aria-label="Close">
@@ -302,8 +323,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="dropofflocation">Drop-off Location</label>
                                                     <input type="text" id="dropofflocation"
-                                                        wire:model="dropofflocation" class="form-control" required
-                                                        readonly>
+                                                        wire:model="dropofflocation" class="form-control" required>
                                                 </div>
                                             </div>
 
@@ -341,10 +361,10 @@
                                             <!-- Checkout Button -->
                                             <button type="submit" class="btn btn-primary btn-block">Proceed to
                                                 Checkout</button>
-                                            @include('frontend.include.error')
-                                            @include('frontend.include.success')
-                                        </form>
 
+                                        </form>
+                                        @include('frontend.include.error')
+                                        @include('frontend.include.success')
                                     </div>
                                 </div>
                             </div>
@@ -577,7 +597,7 @@
         $('#rentCarModal').modal('show');
     });
 </script>
-{{-- <script>
+<script>
     let devToolsOpen = false;
 
     const checkDevTools = () => {
@@ -595,4 +615,37 @@
     };
 
     setInterval(checkDevTools, 1000); // Check every second
-</script> --}}
+</script>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const dropdown = document.getElementById('dropdown');
+    const items = dropdown.getElementsByClassName('select-item');
+
+    searchInput.addEventListener('focus', () => {
+        dropdown.classList.add('show');
+    });
+
+    searchInput.addEventListener('input', () => {
+        const filter = searchInput.value.toLowerCase();
+        Array.from(items).forEach(item => {
+            if (item.textContent.toLowerCase().includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+
+    Array.from(items).forEach(item => {
+        item.addEventListener('click', () => {
+            searchInput.value = item.textContent; // Set input to selected value
+            dropdown.classList.remove('show'); // Hide dropdown
+        });
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!dropdown.contains(event.target) && event.target !== searchInput) {
+            dropdown.classList.remove('show'); // Hide dropdown when clicking outside
+        }
+    });
+</script>

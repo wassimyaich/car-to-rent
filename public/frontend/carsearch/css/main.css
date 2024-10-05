@@ -5790,4 +5790,36 @@ label {
   .footer-text i {
     color: #ffba00; }
 
+
+    .select-container {
+        position: relative;
+        width: 300px;
+    }
+
+    .select-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #ccc;
+        display: none;
+        z-index: 1000;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .select-dropdown.show {
+        display: block;
+    }
+
+    .select-item {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    .select-item:hover {
+        background-color: #f0f0f0;
+    }
+
 /*# sourceMappingURL=main.css.map */

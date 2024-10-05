@@ -9,6 +9,7 @@
     @livewireStyles
     {!! NoCaptcha::renderJs() !!}
 
+
     <style>
         .img-fluide {
             width: 100%;
@@ -28,6 +29,38 @@
             /* This ensures the image fits nicely within the given dimensions */
         }
     </style>
+    {{-- <style>
+        .select-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ccc;
+            display: none;
+            z-index: 1000;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .select-dropdown.show {
+            display: block;
+        }
+
+        .select-item {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .select-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style> --}}
     @include('frontend.include.includeheader')
     <link rel="stylesheet" href="{{ asset('frontend/carsearch/css/linearicons.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/carsearch/css/owl.carousel.css') }}">
@@ -60,11 +93,11 @@
     @livewire('car-filter', [
         'pickuplocation' => $pickUpLocation,
         'dropofflocation' => $dropOffLocation,
-
+    
         'pickUpDate' => $pickUpDate,
         'pickuptime' => $pickuptime,
         'dropofftime' => $dropofftime,
-
+    
         'dropOffDate' => $dropOffDate,
     ])
 
