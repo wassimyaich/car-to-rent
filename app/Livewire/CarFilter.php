@@ -2,61 +2,63 @@
 
 namespace App\Livewire;
 
-use Carbon\Carbon;
-use App\Models\Car;
-use App\Models\Type;
 use App\Models\Brand;
-use App\Models\State;
-use Livewire\Component;
+use App\Models\Car;
 use App\Models\Category;
-use Livewire\Attributes\Url;
-use Livewire\WithPagination;
-use Livewire\Attributes\Title;
+use App\Models\State;
+use App\Models\Type;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\Url;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class CarFilter extends Component
 {
-
     use WithPagination;
-
 
     #[Url]
     public $selected_brands = [];
-<<<<<<< HEAD
 
     #[Url]
     public $selected_types = [];
 
-=======
->>>>>>> parent of 318461b (add strip payment)
     // public $search_state = '';
     public $search_car = '';
+
     public $carsPerPage = 9; // Default number of cars per page
+
     // New properties for price range
     public $minPrice = 1; // Default minimum price
+
     public $maxPrice = 1000; // Default maximum price
 
     #[Url]
     public $pickUpDate;
-<<<<<<< HEAD
 
     #[Url]
-=======
->>>>>>> parent of 318461b (add strip payment)
     public $dropOffDate;
+
     public $pickuptime;
+
     public $dropofftime;
+
     public $pickuplocation; // To store selected pickup state
+
     public $dropofflocation; // To store selected pickup state
+
     public $filteredStatesPickup = [];
 
-
     public $selectedCarName;
+
     public $selectedCarPrice;
 
     public $name; // Add this line
+
     public $phone; // Add this line
+
     public $email; // Add this line
+
     public function openRentModal($carId)
     {
         $car = Car::find($carId);
@@ -65,7 +67,7 @@ class CarFilter extends Component
         $dropOffDate = Carbon::parse($this->dropOffDate);
         $numberOfDays = $pickUpDate->diffInDays($dropOffDate) + 1;
 
-        $basePrice = ($car->daily_rate)* $numberOfDays;
+        $basePrice = ($car->daily_rate) * $numberOfDays;
         if ($numberOfDays > 14) {
             // More than 2 weeks: 8% discount
             $totalPrice = $basePrice * 0.92;
@@ -79,7 +81,6 @@ class CarFilter extends Component
 
         $this->selectedCarPrice = $totalPrice;
 
-
         // Open the Bootstrap modal
         $this->dispatch('show-rent-car-modal');
     }
@@ -88,7 +89,6 @@ class CarFilter extends Component
     {
         // Validate input data
         $this->validate([
-<<<<<<< HEAD
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:15', // Adjust max length as necessary
@@ -193,49 +193,23 @@ class CarFilter extends Component
 
         // Redirect to the Stripe Checkout page
         return redirect()->away($session->url);
-=======
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'phone' => 'required|string',
-            'pickUpDate' => 'required|date',
-            'dropOffDate' => 'required|date',
-            'pickuplocation' => 'required|string',
-            'dropofflocation' => 'required|string',
-            // 'g-recaptcha-response' => 'required|captcha', // Add this for CAPTCHA validation
-        ],[
-
-            'name.in'=> 'name is required',
-        ]
-
-
-
-    );
-
-
-
-    $totalPrice = $this->selectedCarPrice ;
-
-    // session()->flash('totalPrice', $totalPrice);
-    return redirect()->back()->with('success', "you rent passed with success");
-
->>>>>>> parent of 318461b (add strip payment)
     }
-
-
 
     public function updatedPickupLocation()
     {
         $this->filteredStatesPickup = $this->getFilteredStates($this->pickuplocation);
     }
-     private function getFilteredStates($query)
+
+    private function getFilteredStates($query)
     {
-        return State::where('name', 'like', '%' . $query . '%')
+        return State::where('name', 'like', '%'.$query.'%')
             ->limit(5)
             ->get()
             ->map(function ($state) {
                 return ['id' => $state->id, 'name' => $state->name];
             });
     }
+
     public function selectPickupState($stateName)
     {
         $this->pickuplocation = $stateName;
@@ -251,6 +225,7 @@ class CarFilter extends Component
         $this->pickuplocation = $pickuplocation;
         $this->dropofflocation = $dropofflocation;
     }
+
     public function updatedSelectedBrands()
     {
         // Reset pagination to page 1 when the selected brands change
@@ -283,8 +258,6 @@ class CarFilter extends Component
             return $query->whereIn('brand_id', $this->selected_brands);
         })->max('daily_rate'); // Get the maximum daily rate
 
-
-
         // end query
 
         if ($this->pickUpDate && $this->dropOffDate && $this->pickuplocation) {
@@ -313,7 +286,7 @@ class CarFilter extends Component
                     return $query->whereIn('type_id', $this->selected_types);
                 })
                 ->when($this->search_car, function ($query) {
-                    return $query->where('name', 'like', '%' . $this->search_car . '%');
+                    return $query->where('name', 'like', '%'.$this->search_car.'%');
                 })
                 ->whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
                 ->paginate($this->carsPerPage);
@@ -351,28 +324,12 @@ class CarFilter extends Component
                     return $query->whereIn('type_id', $this->selected_types);
                 })
                 ->when($this->search_car, function ($query) {
-                    return $query->where('name', 'like', '%' . $this->search_car . '%');
+                    return $query->where('name', 'like', '%'.$this->search_car.'%');
                 })
                 ->whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
                 ->paginate($this->carsPerPage);
         }
 
-<<<<<<< HEAD
-=======
-
-
-
-        // if ($this->pickUpDate && $this->dropOffDate) {
-        //     $q->whereBetween('start_date', [$this->pickUpDate, $this->dropOffDate])
-        //         ->orWhereBetween('end_date', [$this->pickUpDate, $this->dropOffDate])
-        //         ->orWhere(function ($q2) {
-        //             $q2->where('start_date', '<=', $this->pickUpDate)
-        //                 ->where('end_date', '>=', $this->dropOffDate);
-        //         });
-        // }
-
-
->>>>>>> parent of 318461b (add strip payment)
         $pickuplocation = $this->pickuplocation;
 
         // $states = State::all();
@@ -380,27 +337,27 @@ class CarFilter extends Component
         $types = Type::all();
         $categories = Category::all();
 
-
-        return view('livewire.car-filter', compact("cars", "brands", "types", "categories", "maxDailyRate","pickuplocation"));
+        return view('livewire.car-filter', compact('cars', 'brands', 'types', 'categories', 'maxDailyRate', 'pickuplocation'));
     }
-
-
 
     public function updatePriceRange($minPrice, $maxPrice)
     {
         $this->minPrice = $minPrice;
         $this->maxPrice = $maxPrice;
     }
+
     public function getMaxDailyRateProperty()
     {
         return Car::when($this->selected_brands, function ($query) {
             return $query->whereIn('brand_id', $this->selected_brands);
         })->max('daily_rate');
     }
+
     public function RentCar($id)
     {
         $slug = Car::findorfail($id)->slug;
-        Log::info('car slug' . $slug);
-        return redirect()->route('cart.index',  $slug);
+        Log::info('car slug'.$slug);
+
+        return redirect()->route('cart.index', $slug);
     }
 }
