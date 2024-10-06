@@ -11,9 +11,11 @@
         "filament/filament": "^3.2",
         "joaopaulolndev/filament-edit-profile": "^1.0",
         "laravel/framework": "^11.9",
+        "laravel/reverb": "^1.4",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
+        "pusher/pusher-php-server": "^7.2",
         "saade/filament-fullcalendar": "^3.2",
         "spatie/laravel-medialibrary": "^11.9",
         "stripe/stripe-php": "^16.1"
