@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('car_id')->constrained();
+
             $table->foreignId('reservation_id')->constrained();
             $table->integer('rating');
             $table->text('comment')->nullable();
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
@@ -27,5 +31,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('reviews');
+
     }
 };

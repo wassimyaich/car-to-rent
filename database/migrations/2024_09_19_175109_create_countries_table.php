@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->char('code');
             $table->char('phonecode');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

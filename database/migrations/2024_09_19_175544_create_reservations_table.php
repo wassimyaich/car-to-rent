@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            // $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+
             $table->string('phone');
             $table->foreignId('car_id')->constrained();
             // $table->foreignId('state_id')->constrained()->cascadeOnDelete();
@@ -23,10 +25,10 @@ return new class extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->decimal('total_cost', 10, 2)->nullable();
-            $table->enum('status', ['pending','reserved', 'active', 'completed', 'cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'reserved', 'active', 'completed', 'cancelled'])->default('pending');
             $table->string('email')->nullable();  //add it
             $table->enum('user_type', ['guest', 'registered'])->default('guest'); //add it
-            $table->string('payment_method')->nullable();//add it
+            $table->string('payment_method')->nullable(); //add it
             $table->text('cancellation_reason')->nullable();
             $table->timestamps();
         });

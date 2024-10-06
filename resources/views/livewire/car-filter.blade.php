@@ -370,9 +370,10 @@
                             </div>
                         </div>
 
-
-
-
+                        <div class="col-4 col-sm-6">
+                            @include('frontend.include.error')
+                            @include('frontend.include.success')
+                        </div>
                         <!-- End Modal Structure -->
                     </div>
                 </section>

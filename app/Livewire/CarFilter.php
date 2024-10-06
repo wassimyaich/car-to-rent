@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Brand;
 use App\Models\Car;
 use App\Models\Category;
+use App\Models\Reservation;
 use App\Models\State;
 use App\Models\Type;
 use Carbon\Carbon;
@@ -43,9 +44,9 @@ class CarFilter extends Component
 
     public $dropofftime;
 
-    public $pickuplocation; // To store selected pickup state
+    public $pickuplocation;
 
-    public $dropofflocation; // To store selected pickup state
+    public $dropofflocation;
 
     public $filteredStatesPickup = [];
 
@@ -59,30 +60,74 @@ class CarFilter extends Component
 
     public $email; // Add this line
 
+    public function updatedPickUpDate()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedDropOffDate()
+    {
+        $this->resetPage();
+    }
+
+    public $sameLocation = false; // default to unchecked
+
+    public function updatedSameLocation($value)
+    {
+        if ($value) {
+            $this->dropofflocation = $this->pickuplocation;
+        } else {
+            $this->dropofflocation = ''; // Clear drop-off location if unchecked
+        }
+    }
+
     public function openRentModal($carId)
     {
-        $car = Car::find($carId);
-        $this->selectedCarName = $car->name;
-        $pickUpDate = Carbon::parse($this->pickUpDate);
-        $dropOffDate = Carbon::parse($this->dropOffDate);
-        $numberOfDays = $pickUpDate->diffInDays($dropOffDate) + 1;
+        try {
+            $this->validate([
+                'pickuplocation' => 'required|string|max:255',   // Ensures pick-up location is a string and not empty
+                // 'dropofflocation' => 'required|string|max:255',  // Ensures drop-off location is a string and not empty
+                'pickUpDate' => 'required|date|before:dropOffDate', // Pick-up date must be a valid date before drop-off
+                'dropOffDate' => 'required|date|after:pickUpDate',  // Drop-off date must be a valid date after pick-up
+            ], [
+                // Custom error messages
+                'pickuplocation.required' => 'pickuplocation is required.',
+                'pickUpDate.required' => 'Pickup date is required.',
+                'pickUpDate.date' => 'Pickup date must be a valid date.',
+                'pickUpDate.after_or_equal' => 'Pickup date must be today or later.',
 
-        $basePrice = ($car->daily_rate) * $numberOfDays;
-        if ($numberOfDays > 14) {
-            // More than 2 weeks: 8% discount
-            $totalPrice = $basePrice * 0.92;
-        } elseif ($numberOfDays > 7) {
-            // More than 1 week: 5% discount
-            $totalPrice = $basePrice * 0.95;
-        } else {
-            // Less than or equal to 1 week: no discount
-            $totalPrice = $basePrice;
+                'dropOffDate.required' => 'Drop-off date is required.',
+                'dropOffDate.date' => 'Drop-off date must be a valid date.',
+                'dropOffDate.after' => 'Drop-off date must be after the pickup date.',
+            ]);
+
+            $car = Car::find($carId);
+            $this->selectedCarName = $car->name;
+            $pickUpDate = Carbon::parse($this->pickUpDate);
+            $dropOffDate = Carbon::parse($this->dropOffDate);
+            $numberOfDays = $pickUpDate->diffInDays($dropOffDate) + 1;
+
+            $basePrice = ($car->daily_rate) * $numberOfDays;
+            if ($numberOfDays > 14) {
+                // More than 2 weeks: 8% discount
+                $totalPrice = $basePrice * 0.92;
+            } elseif ($numberOfDays > 7) {
+                // More than 1 week: 5% discount
+                $totalPrice = $basePrice * 0.95;
+            } else {
+                // Less than or equal to 1 week: no discount
+                $totalPrice = $basePrice;
+            }
+
+            $this->selectedCarPrice = $totalPrice;
+
+            // Open the Bootstrap modal
+            $this->dispatch('show-rent-car-modal');
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => 'a problem exist : '.$e->getMessage()])->withInput();
+
         }
 
-        $this->selectedCarPrice = $totalPrice;
-
-        // Open the Bootstrap modal
-        $this->dispatch('show-rent-car-modal');
     }
 
     public function checkout()
@@ -129,7 +174,35 @@ class CarFilter extends Component
 
             // Calculate total price in cents
             $totalPrice = (int) $this->selectedCarPrice * 100;
+            //   start reservation create
+            // Retrieve the Car model based on selectedCarName
+            $car = Car::where('name', $this->selectedCarName)->firstOrFail();
 
+            // Determine if the user is authenticated
+            if (auth()->check()) {
+                $userId = auth()->id();
+                $userType = 'registered';
+            } else {
+                $userId = null; // Assuming 'user_id' is nullable; if not, consider making it nullable or handling guests differently
+                $userType = 'guest';
+            }
+
+            // Create a new 'pending' reservation
+            $reservation = \App\Models\Reservation::create([
+                'user_id' => $userId,
+                'phone' => $this->phone,
+                'car_id' => $car->id,
+                'pickup_location' => $this->pickuplocation,
+                'dropoff_location' => $this->dropofflocation,
+                'start_date' => Carbon::parse($this->pickUpDate)->startOfDay(),
+                'end_date' => Carbon::parse($this->dropOffDate)->endOfDay(),
+                'total_cost' => $this->selectedCarPrice * Carbon::parse($this->pickUpDate)->diffInDays(Carbon::parse($this->dropOffDate)) + 1, // Adjust as per your pricing logic
+                'status' => 'pending',
+                'email' => $this->email,
+                'user_type' => $userType,
+                'payment_method' => 'stripe', // Since you're using Stripe
+                'cancellation_reason' => null, // Initially null
+            ]);
             // Store data in session
             session([
                 'totalPrice' => $totalPrice,
@@ -209,7 +282,7 @@ class CarFilter extends Component
     private function getFilteredStates($query)
     {
         return State::where('name', 'like', '%'.$query.'%')
-            ->limit(5)
+            ->limit(10)
             ->get()
             ->map(function ($state) {
                 return ['id' => $state->id, 'name' => $state->name];
@@ -280,29 +353,33 @@ class CarFilter extends Component
                 ->when($this->pickuplocation, function ($query) {
                     $query->whereHas('state', function ($query) {
                         $query->where('name', $this->pickuplocation)
-                            ->orWhere('name', 'like', '%'.$this->pickuplocation.'%'); // Partial match using LIKE
+                            ->orWhere('name', 'like', '%'.$this->pickuplocation.'%');
                     });
                 })
-        // If both pickUpDate and dropOffDate are selected, hide cars with reservations in that date range
                 ->when($this->pickUpDate && $this->dropOffDate, function ($query) use ($formattedPickUpDate, $formattedDropOffDate) {
                     $query->whereDoesntHave('reservations', function ($query) use ($formattedPickUpDate, $formattedDropOffDate) {
                         $query->where(function ($q) {
-                            // Only consider cars with reservation status 'reserved' or 'active'
                             $q->where('status', 'reserved')
                                 ->orWhere('status', 'active');
                         })
-                        // Filter out cars with reservations that overlap the selected dates
                             ->where(function ($q) use ($formattedPickUpDate, $formattedDropOffDate) {
                                 $q->whereBetween('start_date', [$formattedPickUpDate, $formattedDropOffDate])
                                     ->orWhereBetween('end_date', [$formattedPickUpDate, $formattedDropOffDate])
                                     ->orWhere(function ($q2) use ($formattedPickUpDate, $formattedDropOffDate) {
                                         $q2->where('start_date', '<=', $formattedPickUpDate)
                                             ->where('end_date', '>=', $formattedDropOffDate);
+                                    })
+                                    ->orWhere(function ($q3) use ($formattedPickUpDate) {
+                                        $q3->where('start_date', '<=', $formattedPickUpDate)
+                                            ->where('end_date', '>=', $formattedPickUpDate);
+                                    })
+                                    ->orWhere(function ($q4) use ($formattedDropOffDate) {
+                                        $q4->where('start_date', '<=', $formattedDropOffDate)
+                                            ->where('end_date', '>=', $formattedDropOffDate);
                                     });
                             });
                     });
                 })
-        // Apply other filters (brands, types, search, and price)
                 ->when($this->selected_brands, function ($query) {
                     return $query->whereIn('brand_id', $this->selected_brands);
                 })
@@ -314,6 +391,7 @@ class CarFilter extends Component
                 })
                 ->whereBetween('daily_rate', [$this->minPrice, $this->maxPrice])
                 ->paginate($this->carsPerPage);
+
             $pickuplocation = $this->pickuplocation;
 
             // if (! is_null($this->filteredStatesPickup)) {

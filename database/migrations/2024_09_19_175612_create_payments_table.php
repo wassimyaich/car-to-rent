@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('payment_method');
             $table->string('transaction_id');
             $table->enum('status', ['pending', 'completed', 'failed', 'refunded']);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
