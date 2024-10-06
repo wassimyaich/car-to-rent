@@ -7052,3 +7052,255 @@ Did you mean one of these?
     "type": "Filament\\Notifications\\BroadcastNotification",
     "socket": null
 }  
+[2024-10-06 15:31:43] local.INFO: Admins retrieved: 2  
+[2024-10-06 15:31:43] local.INFO: User created by: John Doe  
+[2024-10-06 15:31:43] local.INFO: User ID: 1 - is_admin: 1  
+[2024-10-06 15:31:43] local.INFO: Sent to admin: {"id":1,"name":"John Doe","email":"john@example.com","email_verified_at":null,"phone":null,"address":null,"driver_license":null,"is_admin":1,"deleted_at":null,"created_at":"2024-10-06T09:11:53.000000Z","updated_at":"2024-10-06T09:11:53.000000Z","custom_fields":null,"avatar_url":null}  
+[2024-10-06 15:31:43] local.INFO: User created by: wassim  
+[2024-10-06 15:31:43] local.INFO: User ID: 13 - is_admin: 1  
+[2024-10-06 15:31:43] local.INFO: Sent to admin: {"id":13,"name":"wassim","email":"wassim@gmail.com","email_verified_at":null,"phone":null,"address":null,"driver_license":null,"is_admin":1,"deleted_at":null,"created_at":"2024-10-06T09:11:55.000000Z","updated_at":"2024-10-06T09:11:55.000000Z","custom_fields":null,"avatar_url":null}  
+[2024-10-06 17:36:21] local.INFO: days: {"days":2.0} 
+[2024-10-06 17:36:21] local.INFO: Pick-up Location: {"data":"Sfax"} 
+[2024-10-06 17:36:21] local.INFO: Drop-off Location: {"data":"Sousse"} 
+[2024-10-06 17:36:21] local.INFO: Pick-up Date: {"data":"10/7/2024"} 
+[2024-10-06 17:36:21] local.INFO: Drop-off Date: {"data":"10/9/2024"} 
+[2024-10-06 17:36:21] local.INFO: Pick-up Time: {"data":"08:36"} 
+[2024-10-06 17:36:21] local.INFO: days: {"days":2.0} 
+[2024-10-06 17:36:21] local.INFO: Pick-up Location: {"data":"Sfax"} 
+[2024-10-06 17:36:21] local.INFO: Drop-off Location: {"data":"Sousse"} 
+[2024-10-06 17:36:21] local.INFO: Pick-up Date: {"data":"10/7/2024"} 
+[2024-10-06 17:36:21] local.INFO: Drop-off Date: {"data":"10/9/2024"} 
+[2024-10-06 17:36:21] local.INFO: Pick-up Time: {"data":"08:36"} 
+[2024-10-06 17:36:22] local.INFO: pickUpLocation is {"data":"08:36"} 
+[2024-10-06 17:36:22] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:36:22] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:36:22] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:36:22] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:36:24] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:36:24] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:36:24] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:36:24] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:36:33] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:36:33] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:36:33] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:36:33] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:36:44] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:36:44] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:36:44] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:36:44] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:36:55] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:36:55] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:36:55] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:36:55] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:37:42] local.INFO: Reservation created. Admin recipients count: 2  
+[2024-10-06 17:37:42] local.INFO: Reservation details: {"user_id":null,"phone":"54216234","car_id":32,"pickup_location":"Gafsa","dropoff_location":"Sousse","start_date":"2024-10-07T00:00:00.000000Z","end_date":"2024-10-09T23:59:59.000000Z","total_cost":2647,"status":"pending","email":"yaichwaai@gmail.com","user_type":"guest","payment_method":"stripe","cancellation_reason":null,"updated_at":"2024-10-06T17:37:42.000000Z","created_at":"2024-10-06T17:37:42.000000Z","id":55}  
+[2024-10-06 17:37:42] local.INFO: Sending notification to admin: John Doe  
+[2024-10-06 17:37:42] local.INFO: Sending notification to admin: wassim  
+[2024-10-06 17:37:42] local.INFO: session request {"_token":"v08LM6VaL9E9Ma6430mFRgFmhb3wTgCgWy8OsUz9","_previous":{"url":"http://192.168.1.5:8000/car?dropoffDate=10%2F9%2F2024&dropoffLocation=Sousse&dropofftime=08%3A35&pickupDate=10%2F7%2F2024&pickupLocation=Sfax&pickuptime=08%3A36"},"_flash":{"old":[],"new":[]},"totalPrice":132300,"carname":"Car 32","pickupDate":"10/7/2024","dropoffDate":"10/9/2024","pickupLocation":"Gafsa","dropoffLocation":"Sousse","name":"test","email":"yaichwaai@gmail.com","phone":"54216234"} 
+[2024-10-06 17:39:38] local.INFO: pickUpLocation is {"data":"08:36"} 
+[2024-10-06 17:39:38] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:39:38] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:39:38] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:39:38] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:39:39] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:39:39] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:39:39] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:39:39] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:39:43] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:39:43] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:39:43] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:39:43] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:39:48] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:39:48] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:39:48] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:39:48] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:39:50] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:39:50] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:39:50] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:39:50] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:39:54] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:39:54] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:39:54] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:39:54] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:40:05] local.INFO: pickUpLocation is {"data":"08:36"} 
+[2024-10-06 17:40:05] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:40:05] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:40:05] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:40:05] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:40:06] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:40:06] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:40:06] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:40:06] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:40:09] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:40:09] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:40:09] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:40:09] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:40:10] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:40:10] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:40:10] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:40:10] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:40:11] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:40:11] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:40:11] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:40:11] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:40:13] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:40:13] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:40:13] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:40:13] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:40:14] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:40:14] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:40:14] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:40:14] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:48:33] local.INFO: pagination {"carsPerPage":"15"} 
+[2024-10-06 17:48:33] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:48:33] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:48:33] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:48:33] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:48:38] local.INFO: pagination {"carsPerPage":"9"} 
+[2024-10-06 17:48:38] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:48:38] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:48:38] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:48:38] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:48:42] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:48:42] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:48:42] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:48:42] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:48:47] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:48:47] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:48:47] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:48:47] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:48:50] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:48:50] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:48:50] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:48:50] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:48:52] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:48:52] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:48:52] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:48:52] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:48:55] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:48:55] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:48:55] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:48:55] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:48:56] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:48:56] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:48:56] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:48:56] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:48:59] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:48:59] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:48:59] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:48:59] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:49:05] local.INFO: pickUpLocation is {"data":"08:36"} 
+[2024-10-06 17:49:05] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:49:05] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:49:05] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:49:05] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:49:06] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:49:06] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:49:06] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:49:06] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:49:09] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:49:09] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:49:09] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:49:09] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:49:12] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:49:12] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:49:12] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:49:12] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:49:13] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:49:13] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:49:13] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:49:13] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:51:48] local.INFO: pagination {"carsPerPage":"15"} 
+[2024-10-06 17:51:48] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:51:48] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:51:48] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:51:48] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:51:51] local.INFO: pagination {"carsPerPage":"9"} 
+[2024-10-06 17:51:51] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:51:51] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:51:51] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:51:51] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:52:57] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:52:57] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:52:57] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:52:57] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 17:53:01] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 17:53:01] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 17:53:01] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 17:53:01] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 18:18:39] local.ERROR: Typed static property Filament\Pages\BasePage::$view must not be accessed before initialization {"userId":13,"exception":"[object] (Error(code: 0): Typed static property Filament\\Pages\\BasePage::$view must not be accessed before initialization at C:\\xampp\\htdocs\\car-to-rent\\vendor\\filament\\filament\\src\\Pages\\BasePage.php:63)
+[stacktrace]
+#0 C:\\xampp\\htdocs\\car-to-rent\\vendor\\filament\\filament\\src\\Pages\\BasePage.php(53): Filament\\Pages\\BasePage->getView()
+#1 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Filament\\Pages\\BasePage->render()
+#2 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#3 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(95): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#4 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#5 C:\\xampp\\htdocs\\car-to-rent\\vendor\\livewire\\livewire\\src\\Wrapped.php(23): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array)
+#6 C:\\xampp\\htdocs\\car-to-rent\\vendor\\livewire\\livewire\\src\\Mechanisms\\HandleComponents\\HandleComponents.php(271): Livewire\\Wrapped->__call('render', Array)
+#7 C:\\xampp\\htdocs\\car-to-rent\\vendor\\livewire\\livewire\\src\\Mechanisms\\HandleComponents\\HandleComponents.php(231): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->getView(Object(App\\Filament\\Pages\\Dashboard))
+#8 C:\\xampp\\htdocs\\car-to-rent\\vendor\\livewire\\livewire\\src\\Mechanisms\\HandleComponents\\HandleComponents.php(54): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->render(Object(App\\Filament\\Pages\\Dashboard), '<div></div>')
+#9 C:\\xampp\\htdocs\\car-to-rent\\vendor\\livewire\\livewire\\src\\LivewireManager.php(73): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount('App\\\\Filament\\\\Pa...', Array, NULL)
+#10 C:\\xampp\\htdocs\\car-to-rent\\vendor\\livewire\\livewire\\src\\Features\\SupportPageComponents\\HandlesPageComponents.php(17): Livewire\\LivewireManager->mount('App\\\\Filament\\\\Pa...', Array)
+#11 C:\\xampp\\htdocs\\car-to-rent\\vendor\\livewire\\livewire\\src\\Features\\SupportPageComponents\\SupportPageComponents.php(117): Livewire\\Component->Livewire\\Features\\SupportPageComponents\\{closure}()
+#12 C:\\xampp\\htdocs\\car-to-rent\\vendor\\livewire\\livewire\\src\\Features\\SupportPageComponents\\HandlesPageComponents.php(14): Livewire\\Features\\SupportPageComponents\\SupportPageComponents::interceptTheRenderOfTheComponentAndRetreiveTheLayoutConfiguration(Object(Closure))
+#13 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(46): Livewire\\Component->__invoke()
+#14 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(262): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Filament\\Pages\\Dashboard), '__invoke')
+#15 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(208): Illuminate\\Routing\\Route->runController()
+#16 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(808): Illuminate\\Routing\\Route->run()
+#17 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#18 C:\\xampp\\htdocs\\car-to-rent\\vendor\\filament\\filament\\src\\Http\\Middleware\\DispatchServingFilamentEvent.php(15): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Filament\\Http\\Middleware\\DispatchServingFilamentEvent->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 C:\\xampp\\htdocs\\car-to-rent\\vendor\\filament\\filament\\src\\Http\\Middleware\\DisableBladeIconComponents.php(14): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Filament\\Http\\Middleware\\DisableBladeIconComponents->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#22 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(88): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#25 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\AuthenticateSession.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\AuthenticateSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(64): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#34 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(75): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 C:\\xampp\\htdocs\\car-to-rent\\vendor\\filament\\filament\\src\\Http\\Middleware\\SetUpPanel.php(19): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Filament\\Http\\Middleware\\SetUpPanel->handle(Object(Illuminate\\Http\\Request), Object(Closure), Object(Filament\\Panel))
+#41 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(807): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(786): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#44 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(750): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#45 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(739): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#46 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(201): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#47 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#48 C:\\xampp\\htdocs\\car-to-rent\\vendor\\livewire\\livewire\\src\\Features\\SupportDisablingBackButtonCache\\DisableBackButtonCacheMiddleware.php(19): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Livewire\\Features\\SupportDisablingBackButtonCache\\DisableBackButtonCacheMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#56 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#57 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#58 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#59 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#60 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#61 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#62 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#63 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#64 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#65 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#66 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#67 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(176): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#68 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#69 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1188): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#70 C:\\xampp\\htdocs\\car-to-rent\\public\\index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#71 C:\\xampp\\htdocs\\car-to-rent\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('C:\\\\xampp\\\\htdocs...')
+#72 {main}
+"} 

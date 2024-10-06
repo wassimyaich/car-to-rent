@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Observers\ReservationObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy(ReservationObserver::class)]
 class Reservation extends Model
 {
     use HasFactory;
-
 
     protected $fillable = [
         'user_id',
@@ -22,13 +24,15 @@ class Reservation extends Model
         'pickup_location',
         'dropoff_location',
         'email',
-        'payment_method'
+        'payment_method',
+        'user_type',
     ];
 
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
     ];
+
     public function car()
     {
         return $this->belongsTo(Car::class);

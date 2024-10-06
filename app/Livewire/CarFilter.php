@@ -8,10 +8,8 @@ use App\Models\Category;
 use App\Models\Reservation;
 use App\Models\State;
 use App\Models\Type;
-use App\Notifications\NewReservationNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -205,17 +203,7 @@ class CarFilter extends Component
                 'payment_method' => 'stripe', // Since you're using Stripe
                 'cancellation_reason' => null, // Initially null
             ]);
-            // event(new NewReservationNotification('A new reservation has been made by '.$this->name.'.'));
-            $notification = new NewReservationNotification('A new reservation has been made by '.$this->name.'.');
 
-            if ($userId) {
-                // Notify the specific registered user
-                Notification::send(auth()->user(), $notification);
-            } else {
-                // You could consider broadcasting to all users if it’s a guest
-                // For example, you could notify all admin users or a specific role
-                Notification::send(\App\Models\User::where('is_admin', 1)->get(), $notification); // Adjust as per your user model
-            }
             // Store data in session
             session([
                 'totalPrice' => $totalPrice,
