@@ -1,0 +1,33 @@
+[2024-10-06 20:56:00] local.INFO: pickUpLocation is {"data":"08:36"} 
+[2024-10-06 20:56:00] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 20:56:00] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 20:56:00] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 20:56:00] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 20:56:01] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 20:56:01] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 20:56:01] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 20:56:01] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 20:56:06] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 20:56:06] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 20:56:06] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 20:56:06] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 20:56:07] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 20:56:07] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 20:56:07] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 20:56:07] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 20:56:11] local.INFO: pickupdate {"pickupdate":"10/7/2024"} 
+[2024-10-06 20:56:11] local.INFO: dropOffDate {"dropOffDate":"10/9/2024"} 
+[2024-10-06 20:56:11] local.INFO: pickupdate {"pickupdate":"2024-10-07"} 
+[2024-10-06 20:56:11] local.INFO: dropOffDate {"dropOffDate":"2024-10-09"} 
+[2024-10-06 20:56:20] local.INFO: Reservation created. Admin recipients count: 2  
+[2024-10-06 20:56:20] local.INFO: Reservation details: {"user_id":null,"phone":"54216234","car_id":16,"pickup_location":"tu","dropoff_location":"Sousse","start_date":"2024-10-07T00:00:00.000000Z","end_date":"2024-10-09T23:59:59.000000Z","total_cost":385,"status":"pending","email":"yaichwaai@gmail.com","user_type":"guest","payment_method":"stripe","cancellation_reason":null,"updated_at":"2024-10-06T20:56:20.000000Z","created_at":"2024-10-06T20:56:20.000000Z","id":72}  
+[2024-10-06 20:56:20] local.INFO: Sending notification to admin: John Doe  
+[2024-10-06 20:56:20] local.INFO: Sending notification to admin: wassim  
+[2024-10-06 20:56:20] local.INFO: session request {"_token":"v08LM6VaL9E9Ma6430mFRgFmhb3wTgCgWy8OsUz9","_previous":{"url":"http://192.168.1.5:8000/car?dropoffDate=10%2F9%2F2024&dropoffLocation=Sousse&dropofftime=08%3A35&pickupDate=10%2F7%2F2024&pickupLocation=Sfax&pickuptime=08%3A36"},"_flash":{"old":[],"new":[]},"totalPrice":19200,"carname":"Car 16","pickupDate":"10/7/2024","dropoffDate":"10/9/2024","pickupLocation":"tu","dropoffLocation":"Sousse","name":"test","email":"yaichwaai@gmail.com","phone":"54216234"} 
+[2024-10-06 21:07:52] local.INFO: Reservation 72 approved successfully.  
+[2024-10-06 21:11:39] local.INFO: Reservation 70 approved successfully.  
+[2024-10-06 21:13:28] local.INFO: Reservation 72 approved successfully.  
+[2024-10-06 21:13:28] local.ERROR: Error approving reservation 72: Route [dashboard] not defined.  
+[2024-10-06 21:18:07] local.INFO: Reservation 71 approved successfully.  
+[2024-10-06 21:18:53] local.INFO: Reservation 70 approved successfully.  
+[2024-10-06 21:19:03] local.INFO: Reservation 72 approved successfully.  

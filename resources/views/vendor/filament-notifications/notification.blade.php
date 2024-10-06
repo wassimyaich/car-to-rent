@@ -18,7 +18,7 @@
             => 'border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800',
     },
 ]) role="alert">
-    <div class="flex w-full gap-3 items-start">
+    <div class="flex items-start w-full gap-3">
         @if ($icon = $getIcon())
             <x-filament::icon :name="$icon" @class([
                 'flex-shrink-0 w-5 h-5',
@@ -48,7 +48,7 @@
             @endif
 
             @if ($actions = $getActions())
-                <div class="mt-3 flex items-center gap-3">
+                <div class="flex items-center gap-3 mt-3">
                     @foreach ($actions as $action)
                         <button class="approve-button" data-url="{{ $action->getUrl() }}">
                             {{ $action }}
@@ -64,37 +64,3 @@
         </button>
     </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const approveButtons = document.querySelectorAll(
-        '.approve-button'); // Ensure you have a class for these buttons
-
-        approveButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default link behavior
-
-                const url = this.getAttribute('data-url'); // Get the URL from data attribute
-
-                fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token for security
-                        },
-                        body: JSON
-                        .stringify({}) // You can send additional data here if needed
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Reservation approved successfully!');
-                            // Optionally, you can remove or hide the notification here
-                        } else {
-                            alert('Error approving reservation.');
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
-        });
-    });
-</script>

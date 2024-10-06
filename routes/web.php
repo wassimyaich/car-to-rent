@@ -55,7 +55,7 @@ Route::middleware(['case-insensitive'])->group(function () {
     // Route::post('/session', [StripeController::class, 'session'])->name('session');
     Route::get('/success', [StripeController::class, 'success'])->name('success');
 
-    Route::post('/reservations/{reservation}/approve', [ReservationController::class, 'approve'])
+    Route::get('/reservations/{reservation}/approve', [ReservationController::class, 'approve'])
         ->name('reservations.approve');
 });
 

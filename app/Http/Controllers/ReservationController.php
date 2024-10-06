@@ -14,11 +14,12 @@ class ReservationController extends Controller
             $reservation->update(['status' => 'reserved']);
             Log::info("Reservation {$reservation->id} approved successfully.");
 
-            return response()->json(['message' => 'Reservation approved successfully.'], 200);
+            return redirect()->route('filament.admin.pages.dashboard');
+            // return response()->json(['success' => 'Reservation approved successfully.'], 200);
         } catch (\Exception $e) {
             Log::error("Error approving reservation {$reservation->id}: ".$e->getMessage());
 
-            return response()->json(['message' => 'Failed to approve reservation.'], 500);
+            return response()->json(['error' => 'Failed to approve reservation.'], 500);
         }
     }
 }
